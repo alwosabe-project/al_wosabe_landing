@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Noto_Kufi_Arabic, IBM_Plex_Sans_Arabic, Sora } from "next/font/google";
+import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import "@/app/globals.css";
 import { isLocale, localeDirection, locales, type Locale } from "@/lib/locales";
@@ -10,29 +10,19 @@ import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import { BackToTopButton } from "@/components/ui/BackToTopButton";
 
-// Display — expressive geometric Kufi for Arabic headlines (variable font)
-const notoKufi = Noto_Kufi_Arabic({
-  subsets: ["arabic"],
-  variable: "--font-noto-kufi",
+const alexandria = localFont({
+  src: [
+    { path: "../../../public/fonts/Alexandria-Light.ttf", weight: "300" },
+    { path: "../../../public/fonts/Alexandria-Regular.ttf", weight: "400" },
+    { path: "../../../public/fonts/Alexandria-Medium.ttf", weight: "500" },
+    { path: "../../../public/fonts/Alexandria-SemiBold.ttf", weight: "600" },
+    { path: "../../../public/fonts/Alexandria-Bold.ttf", weight: "700" },
+    { path: "../../../public/fonts/Alexandria-ExtraBold.ttf", weight: "800" },
+    { path: "../../../public/fonts/Alexandria-Black.ttf", weight: "900" },
+  ],
+  variable: "--font-alexandria",
   display: "swap",
 });
-
-// Body / UI — modern, highly legible Arabic + Latin
-const plexArabic = IBM_Plex_Sans_Arabic({
-  subsets: ["arabic", "latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-plex-arabic",
-  display: "swap",
-});
-
-// Latin display — industrial geometric for English headings & embedded Latin
-const sora = Sora({
-  subsets: ["latin"],
-  variable: "--font-sora",
-  display: "swap",
-});
-
-const fontVars = `${notoKufi.variable} ${plexArabic.variable} ${sora.variable}`;
 
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale }));
@@ -100,7 +90,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} dir={localeDirection(locale)}>
-      <body className={`${fontVars} font-body antialiased`}>
+      <body className={`${alexandria.variable} font-body antialiased`}>
         <Preloader locale={locale} />
         <ScrollProgress />
         <PageTransition>{children}</PageTransition>

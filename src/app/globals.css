@@ -81,7 +81,7 @@ body {
   background: var(--bg);
   color: var(--text);
   /* next/font vars are set on <body> by the layout, so reference them directly */
-  font-family: var(--font-plex-arabic), var(--font-sora), system-ui, sans-serif;
+  font-family: var(--font-alexandria), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -102,11 +102,11 @@ h1,
 h2,
 h3,
 .font-display {
-  font-family: var(--font-noto-kufi), var(--font-sora), system-ui, sans-serif;
+  font-family: var(--font-alexandria), system-ui, sans-serif;
 }
 
 .font-body {
-  font-family: var(--font-plex-arabic), var(--font-sora), system-ui, sans-serif;
+  font-family: var(--font-alexandria), system-ui, sans-serif;
 }
 
 ::selection {

@@ -1,32 +1,3 @@
-import type { MetadataRoute } from "next";
-
-const baseUrl = "https://www.alwosabe.com";
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  return [
-    {
-      url: `${baseUrl}/ar`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1.0,
-      alternates: {
-        languages: {
-          ar: `${baseUrl}/ar`,
-          en: `${baseUrl}/en`,
-        },
-      },
-    },
-    {
-      url: `${baseUrl}/en`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-      alternates: {
-        languages: {
-          ar: `${baseUrl}/ar`,
-          en: `${baseUrl}/en`,
-        },
-      },
-    },
-  ];
-}
+import type{MetadataRoute}from'next';import{safeData,type Brand,type Category,type Product,type BlogPost}from'@/lib/api';
+const base=process.env.NEXT_PUBLIC_SITE_URL||'https://www.alwosabe.com';
+export default async function sitemap():Promise<MetadataRoute.Sitemap>{const entries:MetadataRoute.Sitemap=[];for(const locale of ['ar','en'] as const){for(const path of ['','/products','/blog'])entries.push({url:`${base}/${locale}${path}`,lastModified:new Date(),changeFrequency:path?'weekly':'daily',priority:path?0.8:1,alternates:{languages:{ar:`${base}/ar${path}`,en:`${base}/en${path}`}}});const[products,categories,brands,posts]=await Promise.all([safeData<Product>(`/api/v1/public/products?locale=${locale}&limit=100`,['products']),safeData<Category>(`/api/v1/public/categories?locale=${locale}`,['categories']),safeData<Brand>('/api/v1/public/brands',['brands']),safeData<BlogPost>(`/api/v1/public/blog/posts?locale=${locale}&limit=100`,['blog-posts'])]);for(const item of products)entries.push({url:`${base}/${locale}/products/${item.slug}`,lastModified:item.publishedAt?new Date(item.publishedAt):new Date(),changeFrequency:'weekly',priority:.7});for(const item of categories)entries.push({url:`${base}/${locale}/categories/${item.slug}`,changeFrequency:'weekly',priority:.7});for(const item of brands)entries.push({url:`${base}/${locale}/brands/${item.slug}`,changeFrequency:'weekly',priority:.6});for(const item of posts)entries.push({url:`${base}/${locale}/blog/${item.slug}`,lastModified:new Date(item.publishedAt),changeFrequency:'monthly',priority:.7});}return entries}

@@ -12,20 +12,12 @@ export function Footer({ locale }: { locale: Locale }) {
 
   const productLinks = isAr
     ? [
-      ["الإطارات", "#products"],
-      ["البطاريات", "#products"],
-      ["الزيوت ومواد التشحيم", "#products"],
-      ["قطع غيار الدراجات النارية", "#products"],
-      ["الإكسسوارات", "#products"],
-      ["الأدوات والعدد", "#products"],
+      ["كتالوج المنتجات", `/${locale}/products`],
+      ["المدونة", `/${locale}/blog`],
     ]
     : [
-      ["Tires", "#products"],
-      ["Batteries", "#products"],
-      ["Lubricants", "#products"],
-      ["Motorcycle Spare Parts", "#products"],
-      ["Accessories", "#products"],
-      ["Tools & Hardware", "#products"],
+      ["Product Catalog", `/${locale}/products`],
+      ["Blog", `/${locale}/blog`],
     ];
 
   const branchLinks = isAr

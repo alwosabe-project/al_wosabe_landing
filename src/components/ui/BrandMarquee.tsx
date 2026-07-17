@@ -1,13 +1,12 @@
 "use client";
 
 import Image from "next/image";
-import type { brands as BrandsList } from "@/data/site";
 
 export function BrandMarquee({
   brands,
   locale,
 }: {
-  brands: typeof BrandsList;
+  brands: Array<{ name: string; logo: string }>;
   locale: "ar" | "en";
 }) {
   const isAr = locale === "ar";

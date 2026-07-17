@@ -89,12 +89,14 @@ export function Header({ locale }: { locale: Locale }) {
         </Link>
 
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main navigation">
+          <Link href={`/${locale}/products`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
+          <Link href={`/${locale}/blog`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
           {links.map(([label, id]) => {
             const isActive = activeSection === id;
             return (
               <a
                 key={id}
-                href={`#${id}`}
+                href={`/${locale}#${id}`}
                 className={cn(
                   "animated-underline focus-ring relative rounded-md px-3.5 py-2 text-sm font-bold transition-colors duration-300",
                   isActive ? "active text-brand-bright" : "text-steel-200 hover:text-white",
@@ -114,7 +116,7 @@ export function Header({ locale }: { locale: Locale }) {
           >
             <Globe className="h-5 w-5 text-steel-300 transition-transform duration-500 group-hover:rotate-12 group-hover:text-brand-bright" />
           </Link>
-          <Button href="#quote" className="min-h-11 px-4 py-2">
+          <Button href={`/${locale}#quote`} className="min-h-11 px-4 py-2">
             {labels.cta}
           </Button>
         </div>
@@ -148,12 +150,14 @@ export function Header({ locale }: { locale: Locale }) {
       >
         <div className="overflow-hidden">
           <nav className="grid gap-1 px-5 py-5" aria-label="Mobile navigation">
+            <Link href={`/${locale}/products`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
+            <Link href={`/${locale}/blog`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
             {links.map(([label, id]) => {
               const isActive = activeSection === id;
               return (
                 <a
                   key={id}
-                  href={`#${id}`}
+                  href={`/${locale}#${id}`}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "focus-ring rounded-md px-3 py-3 text-base font-bold transition-colors duration-300 hover:bg-brand/10",
@@ -166,7 +170,7 @@ export function Header({ locale }: { locale: Locale }) {
             })}
             <div className="mt-3">
               <a
-                href="#quote"
+                href={`/${locale}#quote`}
                 onClick={() => setOpen(false)}
                 className="focus-ring flex min-h-12 items-center justify-center rounded-lg bg-[image:var(--grad-brand)] text-sm font-bold text-ink-950 shadow-[var(--shadow-elev-2)] transition-all duration-300 hover:brightness-[1.04]"
               >

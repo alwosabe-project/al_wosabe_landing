@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useInView, useReducedMotion } from "framer-motion";
-import "slot-text/style.css";
-import { SlotText } from "slot-text/react";
 
 export function AnimatedCounter({
   value,
@@ -46,17 +44,7 @@ export function AnimatedCounter({
       dir="ltr"
       style={{ display: "inline-flex", direction: "ltr", unicodeBidi: "isolate" }}
     >
-      <SlotText
-        text={String(display)}
-        options={{
-          direction: "up",
-          stagger: 30,
-          duration: 280,
-          bounce: 0.4,
-          skipUnchanged: true,
-        }}
-        style={{ fontVariantNumeric: "tabular-nums" }}
-      />
+      <span style={{ fontVariantNumeric: "tabular-nums" }}>{display}</span>
       {suffix}
     </span>
   );

@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { ArrowUpRight, Building2, CheckCircle2, MapPin, Phone, Truck, X } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Building2, CheckCircle2, MapPin, Package, Phone, Truck, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
@@ -20,35 +22,37 @@ import { AnimatedRouteMap } from "@/components/ui/AnimatedRouteMap";
 import { ProductShowcase, useShowcaseCycle } from "@/components/ui/ProductShowcase";
 import {
   branches,
-  brands,
   company,
   content,
-  products,
   structuredOrganization,
   valueIcons,
 } from "@/data/site";
 import type { Locale } from "@/lib/locales";
+import type { BlogPost, Brand, Category, Product } from "@/lib/api";
 import { cn, phoneHref, whatsappHref } from "@/lib/utils";
 
-export function LandingPage({ locale }: { locale: Locale }) {
+export type HomeData = { categories: Category[]; brands: Brand[]; featured: Product[]; posts: BlogPost[] };
+
+export function LandingPage({ locale, home }: { locale: Locale; home: HomeData }) {
   const years = new Date().getFullYear() - company.establishedYear;
 
   return (
     <>
       <Header locale={locale} />
       <main className="overflow-x-hidden">
-        <Hero locale={locale} years={years} />
+        <Hero locale={locale} years={years} categories={home.categories} featured={home.featured} />
         <Stats locale={locale} years={years} />
         <About locale={locale} />
         <Operations locale={locale} />
-        <Products locale={locale} />
-        <Brands locale={locale} />
+        <Products locale={locale} categories={home.categories} />
+        <Brands locale={locale} brands={home.brands} />
+        <LatestPosts locale={locale} posts={home.posts} />
         <Distribution locale={locale} />
         <Fleet locale={locale} />
         <Branches locale={locale} />
         <Values locale={locale} />
         <Team locale={locale} />
-        <Quote locale={locale} />
+        <Quote locale={locale} categories={home.categories} />
       </main>
       <Footer locale={locale} />
       <script
@@ -61,10 +65,14 @@ export function LandingPage({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Hero ───────────────────────── */
-function Hero({ locale, years }: { locale: Locale; years: number }) {
+function Hero({ locale, years, categories, featured }: { locale: Locale; years: number; categories: Category[]; featured: Product[] }) {
   const hero = content[locale].hero;
   const isAr = locale === "ar";
-  const showcaseProducts = products[locale];
+  const source = featured.length ? featured : categories;
+  const showcaseProducts = source.length ? source.map((item) => {
+    const isProduct = "shortDescription" in item;
+    return { title: item.name, description: isProduct ? item.shortDescription : item.description, image: (isProduct ? item.mainImage?.url : item.image?.url) || "/images/hero/hero-warehouse.webp", icon: Package, category: isProduct ? item.primaryCategory?.name || (isAr ? "منتج" : "Product") : (isAr ? "فئة" : "Category") };
+  }) : [{ title: isAr ? "حلول المركبات" : "Vehicle solutions", description: hero.description, image: "/images/hero/hero-warehouse.webp", icon: Package, category: isAr ? "الوصابي" : "Al-Wosabe" }];
   const { active, setActive, setPaused, reduce } = useShowcaseCycle(showcaseProducts.length);
   const activeTitle = showcaseProducts[active].title;
 
@@ -331,7 +339,7 @@ function Operations({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Products ───────────────────────── */
-function Products({ locale }: { locale: Locale }) {
+function Products({ locale, categories }: { locale: Locale; categories: Category[] }) {
   const copy = content[locale].products;
 
   return (
@@ -339,14 +347,14 @@ function Products({ locale }: { locale: Locale }) {
       <Container>
         <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         <div className="mt-14 grid grid-cols-2 gap-4 md:gap-6 lg:grid-cols-3">
-          {products[locale].map(({ title, description, image, icon, category }, index) => (
-            <Reveal key={title} delay={index * 0.07}>
+          {categories.map((item, index) => (
+            <Reveal key={item.id} delay={index * 0.07}>
               <ProductCategoryCard
-                title={title}
-                description={description}
-                image={image}
-                icon={icon}
-                category={category}
+                title={item.name}
+                description={item.description}
+                image={item.image?.url || "/images/hero/hero-warehouse.webp"}
+                icon={Package}
+                category={locale === "ar" ? "فئة منتجات" : "Product category"}
               />
             </Reveal>
           ))}
@@ -357,7 +365,7 @@ function Products({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Brands ───────────────────────── */
-function Brands({ locale }: { locale: Locale }) {
+function Brands({ locale, brands }: { locale: Locale; brands: Brand[] }) {
   const copy = content[locale].brands;
 
   return (
@@ -367,8 +375,30 @@ function Brands({ locale }: { locale: Locale }) {
           <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
         </div>
         <Reveal delay={0.1}>
-          <BrandMarquee brands={brands} locale={locale} />
+          <BrandMarquee brands={brands.filter((brand) => brand.logo).map((brand) => ({ name: brand.name, logo: brand.logo!.url }))} locale={locale} />
         </Reveal>
+      </Container>
+    </section>
+  );
+}
+
+function LatestPosts({ locale, posts }: { locale: Locale; posts: BlogPost[] }) {
+  if (!posts.length) return null;
+  return (
+    <section className="bg-paper py-20 sm:py-28">
+      <Container>
+        <SectionHeading eyebrow={locale === "ar" ? "المعرفة والأخبار" : "Insights & news"} title={locale === "ar" ? "أحدث المقالات" : "Latest articles"} />
+        <div className="mt-12 grid gap-5 md:grid-cols-3">
+          {posts.slice(0, 3).map((post, index) => (
+            <Reveal key={post.id} delay={index * 0.08}>
+              <Link href={`/${locale}/blog/${post.slug}`} className="group block overflow-hidden rounded-2xl border border-steel-200 bg-paper shadow-[var(--shadow-elev-1)]">
+                <div className="relative aspect-[16/9] bg-sand-50">{post.coverImage && <Image src={post.coverImage.url} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" />}</div>
+                <div className="p-5"><h3 className="font-display text-lg font-bold text-ink-900">{post.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-7 text-graphite-600">{post.excerpt}</p></div>
+              </Link>
+            </Reveal>
+          ))}
+        </div>
+        <Link className="mt-8 inline-flex font-bold text-brand" href={`/${locale}/blog`}>{locale === "ar" ? "عرض كل المقالات" : "View all articles"} ←</Link>
       </Container>
     </section>
   );
@@ -709,7 +739,7 @@ function Team({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Quote ───────────────────────── */
-function Quote({ locale }: { locale: Locale }) {
+function Quote({ locale, categories }: { locale: Locale; categories: Category[] }) {
   const copy = content[locale].quote;
   const directMessage =
     locale === "ar"
@@ -729,7 +759,7 @@ function Quote({ locale }: { locale: Locale }) {
           </Button>
         </Reveal>
         <Reveal direction="left">
-          <QuoteForm labels={copy} locale={locale} />
+          <QuoteForm labels={copy} locale={locale} categories={categories} />
         </Reveal>
       </Container>
     </section>

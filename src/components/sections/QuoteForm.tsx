@@ -27,15 +27,6 @@ const initialState = {
   message: "",
 };
 
-const productsList = [
-  { value: "Tires", label: { ar: "الإطارات", en: "Tires" } },
-  { value: "Batteries", label: { ar: "البطاريات", en: "Batteries" } },
-  { value: "Lubricants", label: { ar: "الزيوت ومواد التشحيم", en: "Lubricants" } },
-  { value: "Motorcycle Spare Parts", label: { ar: "قطع غيار الدراجات النارية", en: "Motorcycle Spare Parts" } },
-  { value: "Accessories", label: { ar: "الإكسسوارات", en: "Accessories" } },
-  { value: "Tools", label: { ar: "الأدوات والعدد", en: "Tools" } },
-];
-
 const citiesList = [
   { value: "Sana'a", label: { ar: "صنعاء", en: "Sana'a" } },
   { value: "Hodeidah", label: { ar: "الحديدة", en: "Hodeidah" } },
@@ -70,7 +61,7 @@ function FieldLabel({
   );
 }
 
-export function QuoteForm({ labels, locale }: { labels: Labels; locale: Locale }) {
+export function QuoteForm({ labels, locale, categories }: { labels: Labels; locale: Locale; categories: Array<{ id: string; name: string }> }) {
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -140,8 +131,8 @@ export function QuoteForm({ labels, locale }: { labels: Labels; locale: Locale }
           <FieldLabel htmlFor={`${uid}-product`} required>{labels.product}</FieldLabel>
           <select id={`${uid}-product`} className={`${fieldClass} bg-ink-800`} required value={form.product} onChange={(e) => update("product", e.target.value)}>
             <option value="" disabled className="bg-ink-800 text-steel-400">{labels.product}</option>
-            {productsList.map((item) => (
-              <option key={item.value} value={item.label[locale]} className="bg-ink-800 text-white">{item.label[locale]}</option>
+            {categories.map((item) => (
+              <option key={item.id} value={item.name} className="bg-ink-800 text-white">{item.name}</option>
             ))}
           </select>
         </div>
