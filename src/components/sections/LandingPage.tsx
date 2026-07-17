@@ -1,12 +1,11 @@
 "use client";
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Building2, CheckCircle2, MapPin, Package, Phone, Truck, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 import { Button } from "@/components/ui/Button";
@@ -33,12 +32,11 @@ import { cn, phoneHref, whatsappHref } from "@/lib/utils";
 
 export type HomeData = { categories: Category[]; brands: Brand[]; featured: Product[]; posts: BlogPost[] };
 
-export function LandingPage({ locale, home }: { locale: Locale; home: HomeData }) {
+export function LandingPage({ locale, home, whatsappNumber }: { locale: Locale; home: HomeData; whatsappNumber: string }) {
   const years = new Date().getFullYear() - company.establishedYear;
 
   return (
     <>
-      <Header locale={locale} />
       <main className="overflow-x-hidden">
         <Hero locale={locale} years={years} categories={home.categories} featured={home.featured} />
         <Stats locale={locale} years={years} />
@@ -52,13 +50,20 @@ export function LandingPage({ locale, home }: { locale: Locale; home: HomeData }
         <Branches locale={locale} />
         <Values locale={locale} />
         <Team locale={locale} />
-        <Quote locale={locale} categories={home.categories} />
+        <Quote locale={locale} categories={home.categories} whatsappNumber={whatsappNumber} />
       </main>
-      <Footer locale={locale} />
       <script
         type="application/ld+json"
         suppressHydrationWarning
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredOrganization) }}
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            ...structuredOrganization,
+            contactPoint: {
+              ...structuredOrganization.contactPoint,
+              telephone: `+${whatsappNumber.replace(/^\+/, '')}`,
+            },
+          }),
+        }}
       />
     </>
   );
@@ -355,6 +360,7 @@ function Products({ locale, categories }: { locale: Locale; categories: Category
                 image={item.image?.url || "/images/hero/hero-warehouse.webp"}
                 icon={Package}
                 category={locale === "ar" ? "فئة منتجات" : "Product category"}
+                href={`/${locale}/categories/${item.slug}`}
               />
             </Reveal>
           ))}
@@ -739,7 +745,7 @@ function Team({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Quote ───────────────────────── */
-function Quote({ locale, categories }: { locale: Locale; categories: Category[] }) {
+function Quote({ locale, categories, whatsappNumber }: { locale: Locale; categories: Category[]; whatsappNumber: string }) {
   const copy = content[locale].quote;
   const directMessage =
     locale === "ar"
@@ -754,12 +760,12 @@ function Quote({ locale, categories }: { locale: Locale; categories: Category[] 
       <Container className="relative grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:items-start">
         <Reveal direction="right">
           <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} dark />
-          <Button href={whatsappHref(company.whatsappNumber, directMessage)} className="mt-9">
+          <Button href={whatsappHref(whatsappNumber, directMessage)} className="mt-9">
             {copy.submit}
           </Button>
         </Reveal>
         <Reveal direction="left">
-          <QuoteForm labels={copy} locale={locale} categories={categories} />
+          <QuoteForm labels={copy} locale={locale} categories={categories} whatsappNumber={whatsappNumber} />
         </Reveal>
       </Container>
     </section>

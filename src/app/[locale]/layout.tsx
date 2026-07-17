@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 import { notFound } from "next/navigation";
 import "@/app/globals.css";
 import { isLocale, localeDirection, locales, type Locale } from "@/lib/locales";
-import { siteMeta } from "@/data/site";
+import { siteMeta, company } from "@/data/site";
+import { getSettings } from "@/lib/api";
 import { Preloader } from "@/components/layout/Preloader";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
@@ -87,6 +88,8 @@ export default async function LocaleLayout({
   }
 
   const locale = rawLocale as Locale;
+  const settings = await getSettings();
+  const whatsappNumber = settings.whatsapp || company.whatsappNumber;
 
   return (
     <html lang={locale} dir={localeDirection(locale)}>
@@ -94,10 +97,9 @@ export default async function LocaleLayout({
         <Preloader locale={locale} />
         <ScrollProgress />
         <PageTransition>{children}</PageTransition>
-        <FloatingWhatsAppButton locale={locale} />
+        <FloatingWhatsAppButton locale={locale} whatsappNumber={whatsappNumber} />
         <BackToTopButton />
       </body>
     </html>
   );
 }
-

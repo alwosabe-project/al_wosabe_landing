@@ -4,8 +4,11 @@ import { branches, company, content } from "@/data/site";
 import type { Locale } from "@/lib/locales";
 import { Container } from "@/components/ui/Container";
 import { phoneHref, whatsappHref } from "@/lib/utils";
+import { getSettings } from "@/lib/api";
 
-export function Footer({ locale }: { locale: Locale }) {
+export async function Footer({ locale }: { locale: Locale }) {
+  const settings = await getSettings();
+  const whatsappNumber = settings.whatsapp || company.whatsappNumber;
   const labels = content[locale];
   const year = new Date().getFullYear();
   const isAr = locale === "ar";
@@ -111,13 +114,13 @@ export function Footer({ locale }: { locale: Locale }) {
             <div className="grid w-full justify-items-center gap-3 text-sm text-steel-400 sm:justify-items-start">
               {/* Main Phone */}
               <a
-                href={phoneHref(company.whatsappNumber)}
+                href={phoneHref(whatsappNumber)}
                 className="flex items-center gap-3 transition-colors duration-300 hover:text-white"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-brand">
                   <Phone size={15} aria-hidden="true" />
                 </span>
-                <span dir="ltr" className="font-bold">+967 777 265 744</span>
+                <span dir="ltr" className="font-bold">+{whatsappNumber.replace(/^\+/, '')}</span>
               </a>
 
               {/* Main Office Location */}
@@ -142,7 +145,7 @@ export function Footer({ locale }: { locale: Locale }) {
               {/* WhatsApp Button */}
               <div className="mt-3 w-full max-w-[280px] sm:max-w-none">
                 <a
-                  href={whatsappHref(company.whatsappNumber, directMessage)}
+                  href={whatsappHref(whatsappNumber, directMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="focus-ring flex min-h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg transition-all duration-300 hover:bg-emerald-500 hover:scale-[1.02] active:scale-[0.98] w-full"

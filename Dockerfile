@@ -28,6 +28,9 @@ RUN npm run build
 FROM base AS runner
 WORKDIR /app
 
+# Install curl for HealthCheck (Coolify requirement/best practice)
+RUN apk add --no-cache curl
+
 ENV NODE_ENV=production
 # Disable telemetry during runtime.
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -52,6 +55,10 @@ EXPOSE 3000
 
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
+
+# Add HealthCheck for Coolify
+HEALTHCHECK --interval=30s --timeout=10s --start-period=10s --retries=3 \
+  CMD curl -f http://localhost:3000/ || exit 1
 
 # server.js is created by next build when standalone output is enabled
 CMD ["node", "server.js"]

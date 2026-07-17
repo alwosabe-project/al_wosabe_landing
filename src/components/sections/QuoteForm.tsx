@@ -2,7 +2,6 @@
 
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
 import { useId, useState } from "react";
-import { company } from "@/data/site";
 import type { Locale } from "@/lib/locales";
 import { whatsappHref } from "@/lib/utils";
 
@@ -61,7 +60,7 @@ function FieldLabel({
   );
 }
 
-export function QuoteForm({ labels, locale, categories }: { labels: Labels; locale: Locale; categories: Array<{ id: string; name: string }> }) {
+export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labels: Labels; locale: Locale; categories: Array<{ id: string; name: string }>; whatsappNumber: string }) {
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
@@ -91,7 +90,7 @@ export function QuoteForm({ labels, locale, categories }: { labels: Labels; loca
       : `Quote request from Al-Wosabe website\n\nName: ${form.name}\nBusiness: ${form.business || "Not specified"}\nPhone: ${form.phone}\nCity: ${form.city}\nProduct: ${form.product}\nQuantity: ${form.quantity || "Not specified"}\nDetails: ${form.message || "None"}`;
 
     setTimeout(() => {
-      window.open(whatsappHref(company.whatsappNumber, formattedMessage), "_blank", "noopener,noreferrer");
+      window.open(whatsappHref(whatsappNumber, formattedMessage), "_blank", "noopener,noreferrer");
       setSuccessMsg(null);
       setSubmitting(false);
       setForm(initialState);

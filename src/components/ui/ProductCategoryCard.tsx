@@ -1,5 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 
 export function ProductCategoryCard({
   title,
@@ -7,15 +8,18 @@ export function ProductCategoryCard({
   image,
   icon: Icon,
   category,
+  href,
 }: {
   title: string;
   description: string;
   image: string;
   icon: LucideIcon;
   category: string;
+  href: string;
 }) {
   return (
-    <article className="accent-top card-rise group flex h-full flex-col overflow-hidden rounded-2xl border border-steel-200 bg-paper shadow-[var(--shadow-elev-1)] hover:border-steel-300">
+    <Link href={href} className="block h-full focus-ring rounded-2xl">
+      <article className="accent-top card-rise group flex h-full flex-col overflow-hidden rounded-2xl border border-steel-200 bg-paper shadow-[var(--shadow-elev-1)] hover:border-steel-300">
       {/* Product image */}
       <div className="relative aspect-[16/10] w-full shrink-0 overflow-hidden bg-ink-900">
         <Image
@@ -46,5 +50,6 @@ export function ProductCategoryCard({
         <div className="mt-4 h-[2px] w-8 rounded-full bg-[image:var(--grad-brand)] transition-all duration-300 group-hover:w-16" />
       </div>
     </article>
+    </Link>
   );
 }

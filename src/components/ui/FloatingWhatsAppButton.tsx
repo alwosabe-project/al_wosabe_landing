@@ -3,10 +3,9 @@
 import { useEffect, useState } from "react";
 import { MessageSquare } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { company } from "@/data/site";
 import { whatsappHref } from "@/lib/utils";
 
-export function FloatingWhatsAppButton({ locale }: { locale: "ar" | "en" }) {
+export function FloatingWhatsAppButton({ locale, whatsappNumber }: { locale: "ar" | "en"; whatsappNumber: string }) {
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -32,7 +31,7 @@ export function FloatingWhatsAppButton({ locale }: { locale: "ar" | "en" }) {
           animate={{ scale: 1, opacity: 1 }}
           exit={{ scale: 0, opacity: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
-          href={whatsappHref(company.whatsappNumber, message)}
+          href={whatsappHref(whatsappNumber, message)}
           target="_blank"
           rel="noopener noreferrer"
           className="focus-ring fixed bottom-6 end-6 z-[90] flex select-none items-center gap-2 rounded-full bg-emerald-600 p-3.5 text-sm font-bold text-white shadow-[var(--shadow-elev-3)] transition-all hover:bg-emerald-500 md:px-5 md:py-3"
