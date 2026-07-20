@@ -1,14 +1,7 @@
 import {
-  BatteryCharging,
-  BriefcaseBusiness,
-  Building2,
-  CircleGauge,
-  Cog,
   MapPin,
-  PackageCheck,
   ShieldCheck,
   Truck,
-  Wrench,
 } from "lucide-react";
 import type { Locale } from "@/lib/locales";
 
@@ -278,99 +271,7 @@ export const content = {
   },
 } satisfies Record<Locale, Record<string, unknown>>;
 
-export const products = {
-  ar: [
-    {
-      title: "الإطارات",
-      description: "مجموعة متنوعة من الإطارات المناسبة للاستخدام التجاري والشخصي، من علامات تلبي احتياجات السوق المحلي.",
-      image: "/images/products/tires.webp",
-      icon: CircleGauge,
-      category: "تصنيف تجاري",
-    },
-    {
-      title: "البطاريات",
-      description: "بطاريات موثوقة لمختلف الاستخدامات، مع تركيز على الجودة والاستمرارية والقيمة المناسبة.",
-      image: "/images/products/batteries.webp",
-      icon: BatteryCharging,
-      category: "تصنيف تجاري",
-    },
-    {
-      title: "الزيوت ومواد التشحيم",
-      description: "زيوت ومواد تشحيم تساعد على تحسين الأداء والحفاظ على كفاءة المركبات والمعدات.",
-      image: "/images/products/lubricants.webp",
-      icon: Cog,
-      category: "تصنيف إمداد",
-    },
-    {
-      title: "قطع غيار الدراجات النارية",
-      description: "توريد قطع غيار للدراجات النارية بما يلبي احتياجات التجار والعملاء في السوق.",
-      image: "/images/products/motorcycle-parts.webp",
-      icon: Wrench,
-      category: "تصنيف إمداد",
-    },
-    {
-      title: "الإكسسوارات",
-      description: "تشكيلة من الإكسسوارات والمنتجات المكملة لقطاع المركبات والدراجات.",
-      image: "/images/products/accessories.webp",
-      icon: PackageCheck,
-      category: "تصنيف تجاري",
-    },
-    {
-      title: "الأدوات",
-      description: "أدوات ومنتجات مساعدة تدعم احتياجات الورش والعملاء التجاريين.",
-      image: "/images/products/tools.webp",
-      icon: BriefcaseBusiness,
-      category: "تصنيف إمداد",
-    },
-  ],
-  en: [
-    {
-      title: "Tires",
-      description: "A diverse tire range for commercial and personal use, from brands that serve local market needs.",
-      image: "/images/products/tires.webp",
-      icon: CircleGauge,
-      category: "Trading Category",
-    },
-    {
-      title: "Batteries",
-      description: "Reliable batteries for different applications, focused on quality, continuity, and suitable value.",
-      image: "/images/products/batteries.webp",
-      icon: BatteryCharging,
-      category: "Trading Category",
-    },
-    {
-      title: "Lubricants",
-      description: "Oils and lubricants that support performance and help maintain vehicle and equipment efficiency.",
-      image: "/images/products/lubricants.webp",
-      icon: Cog,
-      category: "Supply Category",
-    },
-    {
-      title: "Motorcycle Spare Parts",
-      description: "Supplying motorcycle spare parts for traders and customers across the market.",
-      image: "/images/products/motorcycle-parts.webp",
-      icon: Wrench,
-      category: "Supply Category",
-    },
-    {
-      title: "Accessories",
-      description: "A selection of accessories and complementary products for vehicles and motorcycles.",
-      image: "/images/products/accessories.webp",
-      icon: PackageCheck,
-      category: "Trading Category",
-    },
-    {
-      title: "Tools",
-      description: "Tools and support products for workshops and commercial customers.",
-      image: "/images/products/tools.webp",
-      icon: BriefcaseBusiness,
-      category: "Supply Category",
-    },
-  ],
-} satisfies Record<
-  Locale,
-  { title: string; description: string; image: string; icon: typeof CircleGauge; category: string }[]
->;
+
 
 export const branches = [
   { city: { ar: "صنعاء", en: "Sana'a" }, phones: ["00967 1 374552", "00967 1 374550", "00967 1 474400", "00967 1 474401", "00967 1 474402", "00967 1 474403", "00967 1 621452", "00967 1 621453", "00967 1 325777", "00967 1 324777"], x: 17, y: 49 },
@@ -382,73 +283,7 @@ export const branches = [
   { city: { ar: "تعز", en: "Taiz" }, phones: ["00967 777215023"], x: 16, y: 72 },
 ];
 
-export const brands = [
-  {
-    name: "Gulf",
-    logo: "/images/brands/Gulf_logo.png",
-    category: "Lubricants",
-  },
-  {
-    name: "Westlake",
-    logo: "/images/brands/Westlake-Tires-logo.png",
-    category: "Tires",
-  },
-  {
-    name: "Goodride",
-    logo: "/images/brands/goodride.svg",
-    category: "Tires",
-  },
-  {
-    name: "Trazano",
-    logo: "/images/brands/trazano.png",
-    category: "Tires",
-  },
-  {
-    name: "Golden Crown",
-    logo: "/images/brands/golden-crown.png",
-    category: "Tires",
-  },
-  {
-    name: "Chaoyang",
-    logo: "/images/brands/chaoyang.png",
-    category: "Tires",
-  },
-  {
-    name: "Rongxing",
-    logo: "/images/brands/Rongxing.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "AlMaijd",
-    logo: "/images/brands/AlMaijd.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "BT Sporty",
-    logo: "/images/brands/BT-sporty.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "Metro",
-    logo: "/images/brands/metro.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "Thunder Lite",
-    logo: "/images/brands/thunder-lite.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "RX Sporty",
-    logo: "/images/brands/rx-sporty.png",
-    category: "Motorcycle Parts",
-  },
-  {
-    name: "Tochka",
-    logo: "/images/brands/tochka.png",
-    category: "Motorcycle Parts",
-  },
-];
+
 
 export const valueIcons = [ShieldCheck, MapPin, Truck];
 
