@@ -5,6 +5,7 @@ import type { Locale } from "@/lib/locales";
 import { Container } from "@/components/ui/Container";
 import { phoneHref, whatsappHref } from "@/lib/utils";
 import { getSettings } from "@/lib/api";
+import {PrivacySettingsButton} from '@/components/marketing/MarketingProvider';
 
 export async function Footer({ locale }: { locale: Locale }) {
   const settings = await getSettings();
@@ -162,6 +163,7 @@ export async function Footer({ locale }: { locale: Locale }) {
         <div className="mt-12 border-t border-white/8 pt-6">
           <div className="flex flex-col items-center justify-between gap-3 text-sm text-white/35 sm:flex-row">
             <span>© {year} Al-Wosabe for Trading. {labels.footer.rights}</span>
+            <PrivacySettingsButton locale={locale}/>
             <span className="text-xs text-white/20">{isAr ? "صُنع بعناية 🇾🇪" : "Crafted with care 🇾🇪"}</span>
           </div>
         </div>

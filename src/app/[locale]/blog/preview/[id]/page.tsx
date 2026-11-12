@@ -4,37 +4,19 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Header } from '@/components/layout/Header';
 import { Footer } from '@/components/layout/Footer';
-import { apiGet, type BlogPost } from '@/lib/api';
+import { previewPost } from '@/lib/api';
 import { isLocale, type Locale } from '@/lib/locales';
 
-async function getPreviewPost(locale: Locale, id: string, token: string) {
-  try {
-    return (await apiGet<{ data: BlogPost }>(`/api/v1/public/blog/preview/${id}?locale=${locale}&token=${token}`, ['blog-preview-posts'])).data;
-  } catch {
-    return null;
-  }
-}
-
-export async function generateMetadata({ params, searchParams }: { params: Promise<{ locale: string; id: string }>; searchParams: Promise<{ token?: string }> }): Promise<Metadata> {
-  const { locale: raw, id } = await params;
-  const token = (await searchParams).token;
-  if (!isLocale(raw) || !token) return {};
-  const post = await getPreviewPost(raw, id, token);
-  if (!post) return {};
-  return {
-    title: `[Preview] ${post.seoTitle || post.title}`,
-    robots: { index: false, follow: false },
-  };
-}
-
+export const dynamic='force-dynamic';
+export const metadata:Metadata={title:'Private preview',robots:{index:false,follow:false,nocache:true},referrer:'no-referrer'};
 export default async function Page({ params, searchParams }: { params: Promise<{ locale: string; id: string }>; searchParams: Promise<{ token?: string }> }) {
   const { locale: raw, id } = await params;
   const token = (await searchParams).token;
 
-  if (!isLocale(raw) || !token || token !== process.env.REVALIDATION_SECRET) notFound();
+  if (!isLocale(raw) || !token) notFound();
 
   const locale = raw as Locale;
-  const post = await getPreviewPost(locale, id, token);
+  const post = await previewPost(locale, id, token);
   if (!post) notFound();
 
   return (

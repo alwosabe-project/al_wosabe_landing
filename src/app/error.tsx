@@ -16,6 +16,7 @@ export default function Error({
 
   return (
     <div className="flex flex-col items-center justify-center min-h-[50vh] px-4 text-center">
+      <meta name="robots" content="noindex,nofollow" />
       <h2 className="text-2xl font-bold mb-4 text-red-600">عذراً، حدث خطأ في النظام!</h2>
       <p className="text-gray-600 mb-6">يبدو أن هناك مشكلة في الاتصال بالخادم أو جلب البيانات. يرجى المحاولة مرة أخرى لاحقاً.</p>
       <button

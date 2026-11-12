@@ -10,6 +10,12 @@ import { PageTransition } from "@/components/layout/PageTransition";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
 import { BackToTopButton } from "@/components/ui/BackToTopButton";
+import {Suspense} from 'react';
+import {MarketingProvider} from '@/components/marketing/MarketingProvider';
+import type {MarketingConfig} from '@/lib/marketing';
+import {apiGet} from '@/lib/api';
+import {getSeoSettings,JsonLd,localized} from '@/lib/seo';
+import {siteOrigin,absoluteUrl} from '@/lib/site-url';
 
 const alexandria = localFont({
   src: [
@@ -36,42 +42,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale = isLocale(rawLocale) ? rawLocale : "ar";
-  const meta = siteMeta[locale];
-
-  return {
-    metadataBase: new URL("https://www.alwosabe.com"),
-    title: meta.title,
-    description: meta.description,
-    keywords: meta.keywords,
-    alternates: {
-      canonical: `/${locale}`,
-      languages: {
-        ar: "/ar",
-        en: "/en",
-        "x-default": "/",
-      },
-    },
-    openGraph: {
-      title: meta.title,
-      description: meta.description,
-      locale: locale === "ar" ? "ar_YE" : "en_US",
-      type: "website",
-      images: [
-        {
-          url: "/images/og-image.png",
-          width: 1200,
-          height: 630,
-          alt: meta.title,
-        },
-      ],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: meta.title,
-      description: meta.description,
-      images: ["/images/og-image.png"],
-    },
-  };
+  return {metadataBase:new URL(siteOrigin()),keywords:siteMeta[locale].keywords};
 }
 
 export default async function LocaleLayout({
@@ -89,7 +60,9 @@ export default async function LocaleLayout({
 
   const locale = rawLocale as Locale;
   const settings = await getSettings();
+  const [seo,marketing]=await Promise.all([getSeoSettings(),apiGet<{data:MarketingConfig}>('/api/v1/public/marketing/config',['marketing']).then(r=>r.data).catch(()=>({consent:{version:1 as const,analyticsDefault:false as const,adsDefault:false as const},providers:{},eventRules:[]}))]);
   const whatsappNumber = settings.whatsapp || company.whatsappNumber;
+  const organizationName=localized(seo.companyNameAr,seo.companyNameEn,locale)||(locale==='ar'?'الوصابي للتجارة':'Al-Wosabe for Trading');
 
   return (
     <html lang={locale} dir={localeDirection(locale)}>
@@ -97,6 +70,9 @@ export default async function LocaleLayout({
         <Preloader locale={locale} />
         <ScrollProgress />
         <PageTransition>{children}</PageTransition>
+        <Suspense fallback={null}><MarketingProvider config={marketing} locale={locale}/></Suspense>
+        <JsonLd data={{'@context':'https://schema.org','@type':'Organization','@id':`${siteOrigin()}/#organization`,name:organizationName,url:siteOrigin(),...(seo.logoUrl?{logo:absoluteUrl(seo.logoUrl)}:{}),...(seo.socialLinks?.length?{sameAs:seo.socialLinks}:{})}}/>
+        <JsonLd data={{'@context':'https://schema.org','@type':'WebSite','@id':`${siteOrigin()}/#website`,url:siteOrigin(),name:localized(seo.siteNameAr,seo.siteNameEn,locale)||organizationName,inLanguage:locale}}/>
         <FloatingWhatsAppButton locale={locale} whatsappNumber={whatsappNumber} />
         <BackToTopButton />
       </body>

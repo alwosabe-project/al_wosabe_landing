@@ -1,9 +1,10 @@
 "use client";
 
 import { AlertCircle, CheckCircle2, Loader2, Send } from "lucide-react";
-import { useId, useState } from "react";
+import { useId, useRef, useState } from "react";
 import type { Locale } from "@/lib/locales";
 import { whatsappHref } from "@/lib/utils";
+import {trackEvent,publicApiOrigin} from '@/lib/marketing';
 
 type Labels = {
   name: string;
@@ -65,16 +66,20 @@ export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labe
   const [error, setError] = useState<string | null>(null);
   const [successMsg, setSuccessMsg] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
+  const [whatsappUrl,setWhatsappUrl]=useState<string|null>(null);
+  const requestId=useRef<string|null>(null),recordedLead=useRef<string|null>(null),busy=useRef(false);
   const isAr = locale === "ar";
   const uid = useId();
 
   const update = (field: keyof typeof initialState, value: string) => {
     setError(null);
+    setSuccessMsg(null);setWhatsappUrl(null);requestId.current=null;
     setForm((current) => ({ ...current, [field]: value }));
   };
 
-  const submit = (event: React.FormEvent<HTMLFormElement>) => {
+  const submit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
+    if(busy.current)return;
 
     if (!form.name.trim() || !form.phone.trim() || !form.city || !form.product) {
       setError(isAr ? "يرجى ملء جميع الحقول المطلوبة (المميزة بـ *)." : "Please fill in all required fields (marked *).");
@@ -82,19 +87,25 @@ export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labe
     }
 
     setError(null);
+    busy.current=true;
     setSubmitting(true);
-    setSuccessMsg(isAr ? "تم تجهيز رسالة واتساب، سيتم تحويلك الآن." : "WhatsApp message is ready. Redirecting now.");
+    setSuccessMsg(null);
 
     const formattedMessage = isAr
       ? `طلب عرض سعر من موقع الوصابي للتجارة\n\nالاسم: ${form.name}\nالشركة/المحل: ${form.business || "غير محدد"}\nالهاتف: ${form.phone}\nالمدينة: ${form.city}\nالمنتج: ${form.product}\nالكمية: ${form.quantity || "غير محدد"}\nالتفاصيل: ${form.message || "لا يوجد"}`
       : `Quote request from Al-Wosabe website\n\nName: ${form.name}\nBusiness: ${form.business || "Not specified"}\nPhone: ${form.phone}\nCity: ${form.city}\nProduct: ${form.product}\nQuantity: ${form.quantity || "Not specified"}\nDetails: ${form.message || "None"}`;
 
-    setTimeout(() => {
-      window.open(whatsappHref(whatsappNumber, formattedMessage), "_blank", "noopener,noreferrer");
-      setSuccessMsg(null);
-      setSubmitting(false);
-      setForm(initialState);
-    }, 1100);
+    try {
+      requestId.current=requestId.current||crypto.randomUUID();
+      const response=await fetch(`${publicApiOrigin}/api/v1/public/quote-requests`,{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',body:JSON.stringify({requestId:requestId.current,name:form.name.trim(),phone:form.phone.trim(),company:form.business.trim(),city:form.city,product:form.product,quantity:form.quantity,message:form.message,locale,sourcePath:location.pathname,website:new FormData(event.currentTarget).get('website')||''})});
+      const result=await response.json();if(!response.ok||!result.data?.id)throw new Error('Quote not saved');
+      const href=whatsappHref(whatsappNumber,formattedMessage);setWhatsappUrl(href);
+      setSuccessMsg(isAr?'تم استلام طلبك في النظام. سيتم فتح واتساب لإرسال الرسالة إن رغبت، ويمكنك استخدام الرابط أدناه.':'Your request has been received. WhatsApp will open so you can choose to send the message. You can also use the link below.');
+      if(recordedLead.current!==result.data.eventId&&trackEvent('generate_lead',{eventId:result.data.eventId}))recordedLead.current=result.data.eventId;
+      trackEvent('quote_whatsapp_open');
+      window.open(href,'_blank','noopener,noreferrer');
+    }catch{setError(isAr?'تعذر حفظ الطلب. بياناتك محفوظة في النموذج، يرجى المحاولة مجددًا.':'Unable to save your request. Your form is preserved; please try again.');}
+    finally{busy.current=false;setSubmitting(false);}
   };
 
   return (
@@ -103,19 +114,20 @@ export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labe
       className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/80 p-5 shadow-[var(--shadow-elev-3)] backdrop-blur-xl md:p-7"
     >
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-[image:var(--grad-brand)]" />
+      <label className="hidden" aria-hidden="true">Website<input name="website" tabIndex={-1} autoComplete="off"/></label>
 
       <div className="grid gap-x-4 gap-y-4 md:grid-cols-2">
         <div>
           <FieldLabel htmlFor={`${uid}-name`} required>{labels.name}</FieldLabel>
-          <input id={`${uid}-name`} className={fieldClass} required autoComplete="name" value={form.name} onChange={(e) => update("name", e.target.value)} />
+          <input id={`${uid}-name`} maxLength={120} className={fieldClass} required autoComplete="name" value={form.name} onChange={(e) => update("name", e.target.value)} />
         </div>
         <div>
           <FieldLabel htmlFor={`${uid}-business`}>{labels.business}</FieldLabel>
-          <input id={`${uid}-business`} className={fieldClass} autoComplete="organization" value={form.business} onChange={(e) => update("business", e.target.value)} />
+          <input id={`${uid}-business`} maxLength={160} className={fieldClass} autoComplete="organization" value={form.business} onChange={(e) => update("business", e.target.value)} />
         </div>
         <div>
           <FieldLabel htmlFor={`${uid}-phone`} required>{labels.phone}</FieldLabel>
-          <input id={`${uid}-phone`} type="tel" inputMode="tel" dir="ltr" className={fieldClass} required autoComplete="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} />
+          <input id={`${uid}-phone`} maxLength={32} type="tel" inputMode="tel" dir="ltr" className={fieldClass} required autoComplete="tel" value={form.phone} onChange={(e) => update("phone", e.target.value)} />
         </div>
         <div>
           <FieldLabel htmlFor={`${uid}-city`} required>{labels.city}</FieldLabel>
@@ -137,12 +149,12 @@ export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labe
         </div>
         <div>
           <FieldLabel htmlFor={`${uid}-quantity`}>{labels.quantity}</FieldLabel>
-          <input id={`${uid}-quantity`} className={fieldClass} value={form.quantity} onChange={(e) => update("quantity", e.target.value)} />
+          <input id={`${uid}-quantity`} maxLength={80} className={fieldClass} value={form.quantity} onChange={(e) => update("quantity", e.target.value)} />
         </div>
 
         <div className="md:col-span-2">
           <FieldLabel htmlFor={`${uid}-message`}>{labels.message}</FieldLabel>
-          <textarea id={`${uid}-message`} className={`${fieldClass} min-h-28 resize-y`} value={form.message} onChange={(e) => update("message", e.target.value)} />
+          <textarea id={`${uid}-message`} maxLength={2000} className={`${fieldClass} min-h-28 resize-y`} value={form.message} onChange={(e) => update("message", e.target.value)} />
         </div>
 
         {error && (
@@ -158,6 +170,7 @@ export function QuoteForm({ labels, locale, categories, whatsappNumber }: { labe
             <span>{successMsg}</span>
           </div>
         )}
+        {whatsappUrl&&<a data-quote-whatsapp className="text-sm font-bold text-emerald-300 underline md:col-span-2" href={whatsappUrl} target="_blank" rel="noopener noreferrer" onClick={()=>trackEvent('quote_whatsapp_open')}>{isAr?'فتح الرسالة في واتساب':'Open message in WhatsApp'}</a>}
 
         <button
           type="submit"
