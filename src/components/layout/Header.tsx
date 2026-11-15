@@ -1,5 +1,6 @@
 "use client";
 
+import { CartLink } from '@/components/catalog/QuoteCart';
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Menu, X } from "lucide-react";
@@ -84,14 +85,14 @@ export function Header({ locale }: { locale: Locale }) {
             width={220}
             height={55}
             priority
-            className="h-10 w-auto object-contain transition-opacity duration-300 group-hover:opacity-90 xl:h-11"
+            className="h-8 w-auto max-w-[110px] object-contain transition-opacity duration-300 group-hover:opacity-90 sm:h-10 sm:max-w-none xl:h-11"
           />
         </Link>
 
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main navigation">
           <Link href={`/${locale}/products`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
           <Link href={`/${locale}/blog`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
-          {links.map(([label, id]) => {
+          {links.filter(([, id]) => !['products', 'quote'].includes(id)).map(([label, id]) => {
             const isActive = activeSection === id;
             return (
               <a
@@ -108,7 +109,7 @@ export function Header({ locale }: { locale: Locale }) {
           })}
         </nav>
 
-        <div className="hidden items-center gap-2.5 xl:flex">
+        <div className="hidden items-center gap-2.5 xl:flex"><CartLink locale={locale} />
           <Link
             href={`/${otherLocale}`}
             className="focus-ring group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10"
@@ -116,12 +117,12 @@ export function Header({ locale }: { locale: Locale }) {
           >
             <Globe className="h-5 w-5 text-steel-300 transition-transform duration-500 group-hover:rotate-12 group-hover:text-brand-bright" />
           </Link>
-          <Button href={`/${locale}#quote`} className="min-h-11 px-4 py-2">
+          <Button href={`/${locale}/quote-cart`} className="min-h-11 px-4 py-2">
             {labels.cta}
           </Button>
         </div>
 
-        <div className="flex items-center gap-3 xl:hidden">
+        <div className="flex items-center gap-3 xl:hidden"><CartLink locale={locale} />
           <Link
             href={`/${otherLocale}`}
             className="focus-ring group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10"
@@ -170,7 +171,7 @@ export function Header({ locale }: { locale: Locale }) {
             })}
             <div className="mt-3">
               <a
-                href={`/${locale}#quote`}
+                href={`/${locale}/quote-cart`}
                 onClick={() => setOpen(false)}
                 className="focus-ring flex min-h-12 items-center justify-center rounded-lg bg-[image:var(--grad-brand)] text-sm font-bold text-ink-950 shadow-[var(--shadow-elev-2)] transition-all duration-300 hover:brightness-[1.04]"
               >
