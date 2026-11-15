@@ -1,5 +1,5 @@
 import type { MetadataRoute } from 'next';
-import { apiGet, type ApiList, type Product, type BlogPost, type Brand, type Category, type BlogTaxonomy, type SeoContent } from './api';
+import { apiGet, type ApiList, type CompletedTender, type Product, type BlogPost, type Brand, type Category, type BlogTaxonomy, type SeoContent } from './api';
 import { absoluteUrl, productionIndexing } from './site-url';
 import { isExcluded, languagePaths, type SeoSettings } from './seo';
 
@@ -26,7 +26,8 @@ export async function buildSitemapEntries(): Promise<MetadataRoute.Sitemap> {
   if (settings.indexable === false) return [];
   const entries: MetadataRoute.Sitemap = [];
   for (const locale of ['ar', 'en'] as const) {
-    const [products, posts, categories, brands, blogCategories, tags] = await Promise.all([
+    const [tenders, products, posts, categories, brands, blogCategories, tags] = await Promise.all([
+      allPages<CompletedTender>(`/api/v1/public/completed-tenders?locale=${locale}`, ['completed-tenders']),
       allPages<Product>(`/api/v1/public/products?locale=${locale}`, ['products']),
       allPages<BlogPost>(`/api/v1/public/blog/posts?locale=${locale}`, ['blog-posts']),
       apiGet<{ data: Category[] }>(`/api/v1/public/categories?locale=${locale}`, ['categories']).then((response) => response.data),
@@ -34,8 +35,8 @@ export async function buildSitemapEntries(): Promise<MetadataRoute.Sitemap> {
       apiGet<{ data: BlogTaxonomy[] }>(`/api/v1/public/blog/categories?locale=${locale}`, ['blog-posts', 'blog-categories']).then((response) => response.data),
       apiGet<{ data: BlogTaxonomy[] }>(`/api/v1/public/blog/tags?locale=${locale}`, ['blog-posts', 'blog-tags']).then((response) => response.data),
     ]);
-    for (const suffix of ['', '/products', '/blog']) {
-      if ((suffix === '/products' && !products.length) || (suffix === '/blog' && !posts.length)) continue;
+    for (const suffix of ['', '/products', '/blog', '/completed-tenders']) {
+      if ((suffix === '/products' && !products.length) || (suffix === '/blog' && !posts.length) || (suffix === '/completed-tenders' && !tenders.some(t => t.indexable !== false))) continue;
       const path = `/${locale}${suffix}`;
       if (!isExcluded(path, settings)) entries.push({
         url: absoluteUrl(path),
@@ -54,7 +55,7 @@ export async function buildSitemapEntries(): Promise<MetadataRoute.Sitemap> {
         });
       }
     };
-    add(products, 'products'); add(categories, 'categories'); add(brands, 'brands');
+    add(tenders, 'completed-tenders'); add(products, 'products'); add(categories, 'categories'); add(brands, 'brands');
     add(posts, 'blog'); add(blogCategories, 'blog/categories'); add(tags, 'blog/tags');
   }
   // Stable ordering keeps shard membership consistent between index and shard requests.

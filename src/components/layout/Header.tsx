@@ -10,7 +10,7 @@ import type { Locale } from "@/lib/locales";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
-export function Header({ locale }: { locale: Locale }) {
+export function Header({ locale, alternatePaths }: { locale: Locale; alternatePaths?: Record<string, string> }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
@@ -92,6 +92,7 @@ export function Header({ locale }: { locale: Locale }) {
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main navigation">
           <Link href={`/${locale}/products`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
           <Link href={`/${locale}/blog`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
+          <Link href={`/${locale}/completed-tenders`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المناقصات المنفذة" : "Completed Tenders"}</Link>
           {links.filter(([, id]) => !['products', 'quote'].includes(id)).map(([label, id]) => {
             const isActive = activeSection === id;
             return (
@@ -111,7 +112,7 @@ export function Header({ locale }: { locale: Locale }) {
 
         <div className="hidden items-center gap-2.5 xl:flex"><CartLink locale={locale} />
           <Link
-            href={`/${otherLocale}`}
+            href={alternatePaths?.[otherLocale] || `/${otherLocale}`}
             className="focus-ring group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10"
             aria-label={locale === "ar" ? "تغيير اللغة إلى الإنجليزية" : "Switch language to English"}
           >
@@ -124,7 +125,7 @@ export function Header({ locale }: { locale: Locale }) {
 
         <div className="flex items-center gap-3 xl:hidden"><CartLink locale={locale} />
           <Link
-            href={`/${otherLocale}`}
+            href={alternatePaths?.[otherLocale] || `/${otherLocale}`}
             className="focus-ring group flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/[0.04] text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10"
             aria-label={locale === "ar" ? "تغيير اللغة إلى الإنجليزية" : "Switch language to English"}
           >
@@ -153,6 +154,7 @@ export function Header({ locale }: { locale: Locale }) {
           <nav className="grid gap-1 px-5 py-5" aria-label="Mobile navigation">
             <Link href={`/${locale}/products`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
             <Link href={`/${locale}/blog`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
+            <Link href={`/${locale}/completed-tenders`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "المناقصات المنفذة" : "Completed Tenders"}</Link>
             {links.map(([label, id]) => {
               const isActive = activeSection === id;
               return (

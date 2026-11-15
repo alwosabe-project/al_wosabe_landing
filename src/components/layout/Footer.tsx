@@ -18,10 +18,12 @@ export async function Footer({ locale }: { locale: Locale }) {
     ? [
       ["كتالوج المنتجات", `/${locale}/products`],
       ["المدونة", `/${locale}/blog`],
+      ["المناقصات المنفذة", `/${locale}/completed-tenders`],
     ]
     : [
       ["Product Catalog", `/${locale}/products`],
       ["Blog", `/${locale}/blog`],
+      ["Completed Tenders", `/${locale}/completed-tenders`],
     ];
 
   const branchLinks = isAr
