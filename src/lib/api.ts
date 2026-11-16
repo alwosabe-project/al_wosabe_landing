@@ -8,6 +8,11 @@ export interface Product extends SeoContent { id: string; name: string; slug: st
 export interface BlogPost extends SeoContent { id: string; title: string; slug: string; excerpt: string; contentHtml: string; seoTitle?: string; seoDescription?: string; readingTimeMinutes: number; coverImage?: Media | null; publishedAt: string; createdAt?: string; author?: {name:string}; related?: BlogPost[] }
 export interface BlogTaxonomy extends SeoContent { id:string; name:string; slug:string; description?:string; seoTitle?:string; seoDescription?:string; nameAr?:string; nameEn?:string; seoTitleAr?:string; seoTitleEn?:string; seoDescriptionAr?:string; seoDescriptionEn?:string }
 export interface ApiList<T> { data: T[]; meta: {page:number;limit:number;total:number;totalPages:number} }
+export interface CompletedTender extends SeoContent {
+  id: string; title: string; slug: string; summary: string; description: string; completionDate: string;
+  beneficiaryName: string; seoTitle?: string; seoDescription?: string; coverImage: Media | null;
+  gallery: Array<{ id: string; media: Media }>; publishedAt: string;
+}
 export async function apiGet<T>(path: string, tags: string[] = [], revalidate = 300): Promise<T> { const response = await fetch(`${API_URL}${path}`, { next: { revalidate, tags } }); if (response.status === 404) throw new Error('NOT_FOUND'); if (!response.ok) throw new Error(`API ${response.status}`); return response.json() as Promise<T>; }
 // Preview requests deliberately bypass the shared fetch cache and never log their URL.
 export async function previewPost(locale: Locale, id: string, token: string): Promise<BlogPost | null> {

@@ -42,7 +42,19 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale: rawLocale } = await params;
   const locale = isLocale(rawLocale) ? rawLocale : "ar";
-  return {metadataBase:new URL(siteOrigin()),keywords:siteMeta[locale].keywords};
+  return {
+    metadataBase: new URL(siteOrigin()),
+    keywords: siteMeta[locale].keywords,
+    icons: {
+      icon: [
+        { url: "/favicon.ico", sizes: "any" },
+        { url: "/icon.png", type: "image/png", sizes: "512x512" },
+      ],
+      apple: [
+        { url: "/apple-touch-icon.png", type: "image/png", sizes: "180x180" },
+      ],
+    },
+  };
 }
 
 export default async function LocaleLayout({

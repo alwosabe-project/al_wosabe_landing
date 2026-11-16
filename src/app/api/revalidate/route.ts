@@ -1,4 +1,4 @@
 import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
-const allowed = new Set(['products','categories','brands','blog-posts','settings','seo','seo-redirects','redirects','blog-categories','blog-tags','marketing']);
+const allowed = new Set(['completed-tenders','products','categories','brands','blog-posts','settings','seo','seo-redirects','redirects','blog-categories','blog-tags','marketing']);
 export async function POST(request:NextRequest){const secret=process.env.REVALIDATION_SECRET;if(!secret||request.headers.get('x-revalidation-secret')!==secret)return NextResponse.json({error:'Unauthorized'},{status:401});let body:{tags?:unknown};try{body=await request.json();}catch{return NextResponse.json({error:'Invalid JSON'},{status:400});}if(!Array.isArray(body.tags)||!body.tags.length||body.tags.some(tag=>typeof tag!=='string'||!allowed.has(tag)))return NextResponse.json({error:'Invalid tags'},{status:400});const tags=[...new Set(body.tags as string[])];for(const tag of tags)revalidateTag(tag,{expire:0});return NextResponse.json({data:{revalidated:tags,mode:'expire-immediately'}})}
