@@ -1,5 +1,3 @@
-"use client";
-
 import Image from "next/image";
 
 export function BrandMarquee({
@@ -38,7 +36,7 @@ export function BrandMarquee({
       <style dangerouslySetInnerHTML={{ __html: marqueeCss }} />
 
       {/* Desktop: Slow Marquee */}
-      <div className="relative w-full overflow-hidden hidden md:block">
+      <div tabIndex={0} role="group" aria-label={isAr ? "العلامات التجارية" : "Brands"} className="focus-ring relative w-full overflow-x-auto hidden md:block">
         {/* Soft fading overlays on edges */}
         <div className="pointer-events-none absolute inset-y-0 start-0 z-10 w-28 bg-gradient-to-r from-sand-50 via-sand-50/80 to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 end-0 z-10 w-28 bg-gradient-to-l from-sand-50 via-sand-50/80 to-transparent" />
@@ -76,7 +74,7 @@ export function BrandMarquee({
       </div>
 
       {/* Mobile: Horizontal scroll-snap */}
-      <div className="md:hidden overflow-x-auto scroll-smooth" style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}>
+      <div tabIndex={0} role="group" aria-label={isAr ? "العلامات التجارية" : "Brands"} className="focus-ring md:hidden overflow-x-auto scroll-smooth" style={{ scrollSnapType: "x mandatory", WebkitOverflowScrolling: "touch" }}>
         {/* Soft fading overlays on edges */}
         <div className="pointer-events-none absolute inset-y-0 start-0 z-10 w-12 bg-gradient-to-r from-sand-50 via-sand-50/80 to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 end-0 z-10 w-12 bg-gradient-to-l from-sand-50 via-sand-50/80 to-transparent" />

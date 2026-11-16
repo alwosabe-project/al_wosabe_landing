@@ -58,10 +58,11 @@ export async function Footer({ locale }: { locale: Locale }) {
           {/* Column 1: Info */}
           <div className="flex flex-col items-center text-center sm:items-start sm:text-start">
             <Image
-              src="/logo/logo-white.png"
+              src="/logo/logo-white.webp"
               alt={isAr ? "شعار الوصابي للتجارة باللون الأبيض" : "Al-Wosabe for Trading white logo"}
               width={260}
               height={70}
+              sizes="(max-width: 1280px) 175px, 195px"
               className="h-11 w-auto object-contain xl:h-12"
             />
             <p className="mt-6 max-w-sm text-sm leading-8 text-steel-400">{labels.footer.description}</p>
@@ -151,7 +152,7 @@ export async function Footer({ locale }: { locale: Locale }) {
                   href={whatsappHref(whatsappNumber, directMessage)}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="focus-ring flex min-h-11 items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-xs font-bold text-white shadow-lg transition-all duration-300 hover:bg-emerald-500 hover:scale-[1.02] active:scale-[0.98] w-full"
+                  className="focus-ring flex min-h-11 items-center justify-center gap-2 rounded-lg bg-emerald-800 px-4 py-2.5 text-xs font-bold text-white shadow-lg transition-all duration-300 hover:bg-emerald-700 hover:scale-[1.02] active:scale-[0.98] w-full"
                 >
                   <MessageSquare size={16} />
                   <span>{isAr ? "تواصل عبر واتساب" : "Chat on WhatsApp"}</span>
@@ -163,10 +164,10 @@ export async function Footer({ locale }: { locale: Locale }) {
 
         {/* Bottom copyright footer */}
         <div className="mt-12 border-t border-white/8 pt-6">
-          <div className="flex flex-col items-center justify-between gap-3 text-sm text-white/35 sm:flex-row">
+          <div className="flex flex-col items-center justify-between gap-3 text-sm text-steel-400 sm:flex-row">
             <span>© {year} Al-Wosabe for Trading. {labels.footer.rights}</span>
             <PrivacySettingsButton locale={locale}/>
-            <span className="text-xs text-white/20">{isAr ? "صُنع بعناية 🇾🇪" : "Crafted with care 🇾🇪"}</span>
+            <span className="text-xs text-steel-400">{isAr ? "صُنع بعناية 🇾🇪" : "Crafted with care 🇾🇪"}</span>
           </div>
         </div>
       </Container>

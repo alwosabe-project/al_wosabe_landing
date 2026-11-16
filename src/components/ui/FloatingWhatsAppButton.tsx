@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { MessageSquare } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
 import { whatsappHref } from "@/lib/utils";
 
 export function FloatingWhatsAppButton({ locale, whatsappNumber }: { locale: "ar" | "en"; whatsappNumber: string }) {
@@ -24,22 +23,19 @@ export function FloatingWhatsAppButton({ locale, whatsappNumber }: { locale: "ar
   const label = locale === "ar" ? "تواصل واتساب" : "WhatsApp";
 
   return (
-    <AnimatePresence>
+    <>
       {visible && (
-        <motion.a
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          exit={{ scale: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeOut" }}
+        <a
+          aria-label={label}
           href={whatsappHref(whatsappNumber, message)}
           target="_blank"
           rel="noopener noreferrer"
-          className="focus-ring fixed bottom-6 end-6 z-[90] flex select-none items-center gap-2 rounded-full bg-emerald-600 p-3.5 text-sm font-bold text-white shadow-[var(--shadow-elev-3)] transition-all hover:bg-emerald-500 md:px-5 md:py-3"
+          className="focus-ring fixed bottom-6 end-6 z-[90] flex select-none items-center gap-2 rounded-full bg-emerald-800 p-3.5 text-sm font-bold text-white shadow-[var(--shadow-elev-3)] transition-all hover:bg-emerald-700 md:px-5 md:py-3"
         >
           <MessageSquare size={18} />
           <span className="hidden md:inline">{label}</span>
-        </motion.a>
+        </a>
       )}
-    </AnimatePresence>
+    </>
   );
 }

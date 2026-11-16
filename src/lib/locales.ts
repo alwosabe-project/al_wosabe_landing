@@ -11,3 +11,9 @@ export function isLocale(value: string): value is Locale {
 export function localeDirection(locale: Locale) {
   return locale === "ar" ? "rtl" : "ltr";
 }
+
+// Route params may already be percent-encoded in a streamed page render.
+// Decode once at the boundary; callers still encode when building API URLs.
+export function decodeRouteSegment(value: string): string {
+  try { return decodeURIComponent(value); } catch { return value; }
+}

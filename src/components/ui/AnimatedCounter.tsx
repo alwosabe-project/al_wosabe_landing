@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useInView, useReducedMotion } from "framer-motion";
 
 export function AnimatedCounter({
   value,
@@ -13,29 +12,26 @@ export function AnimatedCounter({
   className?: string;
 }) {
   const ref = useRef<HTMLSpanElement>(null);
-  const inView = useInView(ref, { once: true, margin: "-80px" });
-  const reducedMotion = useReducedMotion();
-  const [display, setDisplay] = useState(reducedMotion ? value : 0);
+
+  const [display, setDisplay] = useState(value);
 
   useEffect(() => {
-    if (!inView || reducedMotion) {
-      return;
-    }
-
-    let frame = 0;
-    const frames = 42;
-    const timer = window.setInterval(() => {
-      frame += 1;
-      const progress = 1 - Math.pow(1 - frame / frames, 3);
-      setDisplay(Math.round(value * progress));
-      if (frame >= frames) {
-        window.clearInterval(timer);
-        setDisplay(value);
-      }
-    }, 20);
-
-    return () => window.clearInterval(timer);
-  }, [inView, reducedMotion, value]);
+    const element = ref.current;
+    if (!element || !window.matchMedia("(min-width: 1024px) and (prefers-reduced-motion: no-preference)").matches) return;
+    let timer: number | undefined;
+    const observer = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      observer.disconnect();
+      let frame = 0;
+      timer = window.setInterval(() => {
+        frame += 1;
+        setDisplay(Math.round(value * (1 - Math.pow(1 - frame / 42, 3))));
+        if (frame >= 42) window.clearInterval(timer);
+      }, 20);
+    }, { rootMargin: "-80px" });
+    observer.observe(element);
+    return () => { observer.disconnect(); window.clearInterval(timer); };
+  }, [value]);
 
   return (
     <span

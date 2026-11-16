@@ -6,7 +6,6 @@ import "@/app/globals.css";
 import { isLocale, localeDirection, locales, type Locale } from "@/lib/locales";
 import { siteMeta, company } from "@/data/site";
 import { getSettings } from "@/lib/api";
-import { Preloader } from "@/components/layout/Preloader";
 import { PageTransition } from "@/components/layout/PageTransition";
 import { ScrollProgress } from "@/components/ui/ScrollProgress";
 import { FloatingWhatsAppButton } from "@/components/ui/FloatingWhatsAppButton";
@@ -19,15 +18,7 @@ import {getSeoSettings,JsonLd,localized} from '@/lib/seo';
 import {siteOrigin,absoluteUrl} from '@/lib/site-url';
 
 const alexandria = localFont({
-  src: [
-    { path: "../../../public/fonts/Alexandria-Light.ttf", weight: "300" },
-    { path: "../../../public/fonts/Alexandria-Regular.ttf", weight: "400" },
-    { path: "../../../public/fonts/Alexandria-Medium.ttf", weight: "500" },
-    { path: "../../../public/fonts/Alexandria-SemiBold.ttf", weight: "600" },
-    { path: "../../../public/fonts/Alexandria-Bold.ttf", weight: "700" },
-    { path: "../../../public/fonts/Alexandria-ExtraBold.ttf", weight: "800" },
-    { path: "../../../public/fonts/Alexandria-Black.ttf", weight: "900" },
-  ],
+  src: [{ path: "../../../public/fonts/Alexandria-400-800.woff2", weight: "400 800", style: "normal" }],
   variable: "--font-alexandria",
   display: "swap",
 });
@@ -82,7 +73,6 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={localeDirection(locale)}>
       <body className={`${alexandria.variable} font-body antialiased`}>
-        <Preloader locale={locale} />
         <ScrollProgress />
         <PageTransition>{children}</PageTransition>
         <Suspense fallback={null}><MarketingProvider config={marketing} locale={locale}/></Suspense>

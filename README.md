@@ -1,6 +1,6 @@
 # Al-Wosabe public site
 
-Next.js bilingual public catalog. Marketing/SEO implementation has been reviewed from source only; no local server, browser, build, compiler, tests or migration were run.
+Next.js bilingual public catalog. Mobile performance changes, reproducible validation, measurements and remaining production checks are documented in [docs/performance/REPORT.md](docs/performance/REPORT.md).
 
 Deployment order: back up the database; apply the API's additive marketing/SEO migrations; deploy API; deploy Admin and Landing; configure providers and permissions; verify with the owner's platform tools. The API owns the delivery worker and encrypted secrets.
 

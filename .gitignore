@@ -50,3 +50,6 @@ coverage/
 *.pid
 *.seed
 *.pid.lock
+
+# Local performance recordings
+artifacts/performance/

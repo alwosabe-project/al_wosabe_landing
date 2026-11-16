@@ -1,0 +1,1874 @@
+{
+  "date": "2026-11-17",
+  "warning": "Before is production; after is a local production build with production API, not a paired production comparison. Baseline includes two NO_FCP runs; after uses a fresh Chrome process per run. SITE_INDEXABLE=false locally.",
+  "matrix": [
+    {
+      "profile": "ar-mobile",
+      "beforeProduction": {
+        "performanceMedian": 60.0,
+        "lcpMedianMs": 7009.921399999999,
+        "tbtMedianMs": 315,
+        "clsMedian": 0.00016235093351831852
+      },
+      "afterLocalBuild": {
+        "performanceMedian": 84.0,
+        "lcpMedianMs": 3986.68735,
+        "tbtMedianMs": 222.00000000000023,
+        "clsMedian": 0
+      }
+    },
+    {
+      "profile": "ar-desktop",
+      "beforeProduction": {
+        "performanceMedian": 83.0,
+        "lcpMedianMs": 1737.8741,
+        "tbtMedianMs": 53,
+        "clsMedian": 2.7341130194731333e-05
+      },
+      "afterLocalBuild": {
+        "performanceMedian": 100,
+        "lcpMedianMs": 798.6425,
+        "tbtMedianMs": 14.500000000000057,
+        "clsMedian": 0
+      }
+    },
+    {
+      "profile": "root-mobile",
+      "beforeProduction": {
+        "performanceMedian": 56.00000000000001,
+        "lcpMedianMs": 6786.0162,
+        "tbtMedianMs": 440,
+        "clsMedian": 0.00016198105278590928
+      },
+      "afterLocalBuild": {
+        "performanceMedian": 80.0,
+        "lcpMedianMs": 4163.055225,
+        "tbtMedianMs": 284.5,
+        "clsMedian": 0
+      }
+    },
+    {
+      "profile": "root-desktop",
+      "beforeProduction": {
+        "performanceMedian": 59.0,
+        "lcpMedianMs": 3521.5051,
+        "tbtMedianMs": 150.5,
+        "clsMedian": 3.311160770358275e-05
+      },
+      "afterLocalBuild": {
+        "performanceMedian": 100,
+        "lcpMedianMs": 819.80935,
+        "tbtMedianMs": 17,
+        "clsMedian": 0
+      }
+    }
+  ],
+  "networkTransferBytesMobileFirstRun": {
+    "before": {
+      "Script": 236382,
+      "Font": 570841,
+      "Image": 555948,
+      "Document": 42474,
+      "Stylesheet": 11491,
+      "total": 1510333
+    },
+    "after": {
+      "Script": 182413,
+      "Font": 94877,
+      "Image": 113613,
+      "Document": 66908,
+      "Stylesheet": 11928,
+      "total": 561770
+    }
+  },
+  "before": [
+    {
+      "name": "ar-mobile-1",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.6,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 2106.312
+        },
+        "largest-contentful-paint": {
+          "value": 7581.312
+        },
+        "speed-index": {
+          "value": 7056.94397110124
+        },
+        "total-blocking-time": {
+          "value": 315
+        },
+        "cumulative-layout-shift": {
+          "value": 0.00016235093351831852
+        },
+        "server-response-time": {
+          "value": 820
+        }
+      },
+      "failedAudits": [
+        "server-response-time",
+        "mainthread-work-breakdown",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "bf-cache",
+        "document-latency-insight",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-2",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.6,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1277.5557
+        },
+        "largest-contentful-paint": {
+          "value": 6752.5557
+        },
+        "speed-index": {
+          "value": 16456.54764194924
+        },
+        "total-blocking-time": {
+          "value": 304.5
+        },
+        "cumulative-layout-shift": {
+          "value": 0.000162573164312586
+        },
+        "server-response-time": {
+          "value": 579
+        }
+      },
+      "failedAudits": [
+        "speed-index",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "bf-cache",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-3",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.48,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1534.9214
+        },
+        "largest-contentful-paint": {
+          "value": 7009.921399999999
+        },
+        "speed-index": {
+          "value": 20549.082603273993
+        },
+        "total-blocking-time": {
+          "value": 758.0000000000002
+        },
+        "cumulative-layout-shift": {
+          "value": 0.00016111144672247514
+        },
+        "server-response-time": {
+          "value": 465
+        }
+      },
+      "failedAudits": [
+        "speed-index",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "bf-cache",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-1",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.83,
+      "accessibility": 0.98,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 637.8741
+        },
+        "largest-contentful-paint": {
+          "value": 1737.8741
+        },
+        "speed-index": {
+          "value": 5792.947651376507
+        },
+        "total-blocking-time": {
+          "value": 58
+        },
+        "cumulative-layout-shift": {
+          "value": 2.7293640438447647e-05
+        },
+        "server-response-time": {
+          "value": 323
+        }
+      },
+      "failedAudits": [
+        "mainthread-work-breakdown",
+        "heading-order",
+        "unused-javascript",
+        "bf-cache",
+        "image-delivery-insight",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-2",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.85,
+      "accessibility": 0.98,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 463.6331
+        },
+        "largest-contentful-paint": {
+          "value": 1563.6331
+        },
+        "speed-index": {
+          "value": 5206.135064321481
+        },
+        "total-blocking-time": {
+          "value": 53
+        },
+        "cumulative-layout-shift": {
+          "value": 2.7341130194731333e-05
+        },
+        "server-response-time": {
+          "value": 220
+        }
+      },
+      "failedAudits": [
+        "heading-order",
+        "unused-javascript",
+        "bf-cache",
+        "image-delivery-insight",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-3",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.82,
+      "accessibility": 0.98,
+      "seo": 0.92,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 781.3294000000001
+        },
+        "largest-contentful-paint": {
+          "value": 1861.3294
+        },
+        "speed-index": {
+          "value": 9048.85760502034
+        },
+        "total-blocking-time": {
+          "value": 41
+        },
+        "cumulative-layout-shift": {
+          "value": 0.0049142703718279435
+        },
+        "server-response-time": {
+          "value": 405
+        }
+      },
+      "failedAudits": [
+        "speed-index",
+        "mainthread-work-breakdown",
+        "heading-order",
+        "robots-txt",
+        "llms-txt",
+        "bf-cache",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "lcp-breakdown-insight",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-1",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.58,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1164.211
+        },
+        "largest-contentful-paint": {
+          "value": 7014.210999999999
+        },
+        "speed-index": {
+          "value": 12229.54605154181
+        },
+        "total-blocking-time": {
+          "value": 367
+        },
+        "cumulative-layout-shift": {
+          "value": 0.00016122986902781053
+        },
+        "server-response-time": {
+          "value": 745
+        }
+      },
+      "failedAudits": [
+        "server-response-time",
+        "redirects",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "bf-cache",
+        "document-latency-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-2",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.48,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1272.5681
+        },
+        "largest-contentful-paint": {
+          "value": 6747.5681
+        },
+        "speed-index": {
+          "value": 13651.892201759823
+        },
+        "total-blocking-time": {
+          "value": 802
+        },
+        "cumulative-layout-shift": {
+          "value": 0.00016198105278590928
+        },
+        "server-response-time": {
+          "value": 411
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "bf-cache",
+        "document-latency-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-3",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.56,
+      "accessibility": 0.95,
+      "seo": 1,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1526.0162
+        },
+        "largest-contentful-paint": {
+          "value": 6786.0162
+        },
+        "speed-index": {
+          "value": 10848.283518674874
+        },
+        "total-blocking-time": {
+          "value": 440
+        },
+        "cumulative-layout-shift": {
+          "value": 0.00016242685817365404
+        },
+        "server-response-time": {
+          "value": 380
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "ard-schema",
+        "bf-cache",
+        "document-latency-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-desktop-1",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.59,
+      "accessibility": 0.98,
+      "seo": 0.92,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 2753.5051
+        },
+        "largest-contentful-paint": {
+          "value": 3521.5051
+        },
+        "speed-index": {
+          "value": 5166.783950741425
+        },
+        "total-blocking-time": {
+          "value": 150.5
+        },
+        "cumulative-layout-shift": {
+          "value": 3.311160770358275e-05
+        },
+        "server-response-time": {
+          "value": 338
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "heading-order",
+        "unused-javascript",
+        "robots-txt",
+        "llms-txt",
+        "ard-schema",
+        "bf-cache",
+        "document-latency-insight",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "lcp-breakdown-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "root-desktop-2",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "error": {
+        "code": "NO_FCP",
+        "message": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)",
+        "errorStack": "LighthouseError: NO_FCP\n    at Timeout.<anonymous> (file:///C:/Users/PC/AppData/Local/Temp/alwosabe-perf-tools/node_modules/lighthouse/core/gather/driver/wait-for-condition.js:85:14)\n    at listOnTimeout (node:internal/timers:685:17)\n    at process.processTimers (node:internal/timers:618:7)",
+        "artifactKey": "PageLoadError"
+      },
+      "score": null,
+      "accessibility": null,
+      "seo": null,
+      "metrics": {
+        "first-contentful-paint": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "largest-contentful-paint": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "speed-index": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "total-blocking-time": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "cumulative-layout-shift": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "server-response-time": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        }
+      },
+      "failedAudits": []
+    },
+    {
+      "name": "root-desktop-3",
+      "url": "https://alwosabifortrading.com/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "error": {
+        "code": "NO_FCP",
+        "message": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)",
+        "errorStack": "LighthouseError: NO_FCP\n    at Timeout.<anonymous> (file:///C:/Users/PC/AppData/Local/Temp/alwosabe-perf-tools/node_modules/lighthouse/core/gather/driver/wait-for-condition.js:85:14)\n    at listOnTimeout (node:internal/timers:685:17)\n    at process.processTimers (node:internal/timers:618:7)",
+        "artifactKey": "PageLoadError"
+      },
+      "score": null,
+      "accessibility": null,
+      "seo": null,
+      "metrics": {
+        "first-contentful-paint": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "largest-contentful-paint": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "speed-index": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "total-blocking-time": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "cumulative-layout-shift": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        },
+        "server-response-time": {
+          "error": "The page did not paint any content. Please ensure you keep the browser window in the foreground during the load and try again. (NO_FCP)"
+        }
+      },
+      "failedAudits": []
+    }
+  ],
+  "stage1": [
+    {
+      "name": "ar-mobile-1",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.68,
+      "accessibility": 0.95,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1012.3571
+        },
+        "largest-contentful-paint": {
+          "value": 7002.606950000001
+        },
+        "speed-index": {
+          "value": 2964.9631541984772
+        },
+        "total-blocking-time": {
+          "value": 358.5
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 41
+        }
+      },
+      "failedAudits": [
+        "errors-in-console",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-2",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.57,
+      "accessibility": 0.95,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1128.1008000000002
+        },
+        "largest-contentful-paint": {
+          "value": 7157.403200000002
+        },
+        "speed-index": {
+          "value": 3674.466176869252
+        },
+        "total-blocking-time": {
+          "value": 738.5
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 66
+        }
+      },
+      "failedAudits": [
+        "errors-in-console",
+        "mainthread-work-breakdown",
+        "bootup-time",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-3",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.69,
+      "accessibility": 0.95,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 940.6505
+        },
+        "largest-contentful-paint": {
+          "value": 7753.451499999999
+        },
+        "speed-index": {
+          "value": 4784.758027155517
+        },
+        "total-blocking-time": {
+          "value": 202.5
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 1194
+        }
+      },
+      "failedAudits": [
+        "errors-in-console",
+        "server-response-time",
+        "mainthread-work-breakdown",
+        "color-contrast",
+        "heading-order",
+        "label-content-name-mismatch",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "document-latency-insight",
+        "forced-reflow-insight",
+        "image-delivery-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    }
+  ],
+  "after": [
+    {
+      "name": "ar-mobile-1",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.84,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1135.24865
+        },
+        "largest-contentful-paint": {
+          "value": 3987.4973
+        },
+        "speed-index": {
+          "value": 1135.24865
+        },
+        "total-blocking-time": {
+          "value": 222.00000000000023
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 41
+        }
+      },
+      "failedAudits": [
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-2",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.85,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1150.62645
+        },
+        "largest-contentful-paint": {
+          "value": 3909.2529000000004
+        },
+        "speed-index": {
+          "value": 2558.7593320117758
+        },
+        "total-blocking-time": {
+          "value": 172
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 1228
+        }
+      },
+      "failedAudits": [
+        "server-response-time",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "document-latency-insight",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-mobile-3",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.83,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1302.4821
+        },
+        "largest-contentful-paint": {
+          "value": 3986.68735
+        },
+        "speed-index": {
+          "value": 1302.4821
+        },
+        "total-blocking-time": {
+          "value": 230.49999999999977
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 33
+        }
+      },
+      "failedAudits": [
+        "mainthread-work-breakdown",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-1",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 1,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 373.65700000000004
+        },
+        "largest-contentful-paint": {
+          "value": 798.6425
+        },
+        "speed-index": {
+          "value": 511.39441695210735
+        },
+        "total-blocking-time": {
+          "value": 14.500000000000057
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 71
+        }
+      },
+      "failedAudits": [
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "forced-reflow-insight",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-2",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.99,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 394.96799999999996
+        },
+        "largest-contentful-paint": {
+          "value": 857.9040000000001
+        },
+        "speed-index": {
+          "value": 667.1966936082999
+        },
+        "total-blocking-time": {
+          "value": 49.000000000000114
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 100
+        }
+      },
+      "failedAudits": [
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "ar-desktop-3",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 1,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 312.09785
+        },
+        "largest-contentful-paint": {
+          "value": 756.6957
+        },
+        "speed-index": {
+          "value": 334.9409595645519
+        },
+        "total-blocking-time": {
+          "value": 0
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 37
+        }
+      },
+      "failedAudits": [
+        "is-crawlable",
+        "bf-cache",
+        "lcp-discovery-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-1",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.8,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1354.5801
+        },
+        "largest-contentful-paint": {
+          "value": 4163.055225
+        },
+        "speed-index": {
+          "value": 1354.5801
+        },
+        "total-blocking-time": {
+          "value": 275.5000000000002
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 38
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-2",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.76,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1427.3673
+        },
+        "largest-contentful-paint": {
+          "value": 4343.326424999999
+        },
+        "speed-index": {
+          "value": 1427.3673
+        },
+        "total-blocking-time": {
+          "value": 387
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 38
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-mobile-3",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.8,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 1356.9157
+        },
+        "largest-contentful-paint": {
+          "value": 4126.102474999999
+        },
+        "speed-index": {
+          "value": 1356.9157
+        },
+        "total-blocking-time": {
+          "value": 284.5
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 36
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "legacy-javascript-insight",
+        "render-blocking-insight"
+      ]
+    },
+    {
+      "name": "root-desktop-1",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 0.99,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 400.2025
+        },
+        "largest-contentful-paint": {
+          "value": 854.104375
+        },
+        "speed-index": {
+          "value": 507.8320053593667
+        },
+        "total-blocking-time": {
+          "value": 49
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 41
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "root-desktop-2",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 1,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 370.17279999999994
+        },
+        "largest-contentful-paint": {
+          "value": 810.0524
+        },
+        "speed-index": {
+          "value": 475.23443716404
+        },
+        "total-blocking-time": {
+          "value": 12.499999999999943
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 27
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    },
+    {
+      "name": "root-desktop-3",
+      "url": "http://127.0.0.1:3100/ar",
+      "version": "13.6.0",
+      "browser": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+      "score": 1,
+      "accessibility": 1,
+      "seo": 0.69,
+      "metrics": {
+        "first-contentful-paint": {
+          "value": 370.7482
+        },
+        "largest-contentful-paint": {
+          "value": 819.80935
+        },
+        "speed-index": {
+          "value": 433.8685819282536
+        },
+        "total-blocking-time": {
+          "value": 17
+        },
+        "cumulative-layout-shift": {
+          "value": 0
+        },
+        "server-response-time": {
+          "value": 27
+        }
+      },
+      "failedAudits": [
+        "redirects",
+        "unused-javascript",
+        "is-crawlable",
+        "bf-cache",
+        "lcp-discovery-insight",
+        "legacy-javascript-insight",
+        "network-dependency-tree-insight"
+      ]
+    }
+  ],
+  "functional": [
+    {
+      "name": "SSR without JS ar 390",
+      "pass": true,
+      "detail": {
+        "h1": "ط§ظ„ظˆطµط§ط¨ظٹ ظ„ظ„طھط¬ط§ط±ط©",
+        "textLength": 5247
+      }
+    },
+    {
+      "name": "SSR without JS ar 1440",
+      "pass": true,
+      "detail": {
+        "h1": "ط§ظ„ظˆطµط§ط¨ظٹ ظ„ظ„طھط¬ط§ط±ط©",
+        "textLength": 5212
+      }
+    },
+    {
+      "name": "SSR without JS en 390",
+      "pass": true,
+      "detail": {
+        "h1": "Al-Wosabe for Trading",
+        "textLength": 6030
+      }
+    },
+    {
+      "name": "SSR without JS en 1440",
+      "pass": true,
+      "detail": {
+        "h1": "Al-Wosabe for Trading",
+        "textLength": 5987
+      }
+    },
+    {
+      "name": "UI, accessibility, cart and consent ar",
+      "pass": true,
+      "detail": {
+        "a11yViolations": 0,
+        "mockedQuoteSubmissions": 1,
+        "sdkAfterConsent": 0,
+        "errors": [],
+        "failed": []
+      }
+    },
+    {
+      "name": "UI, accessibility, cart and consent en",
+      "pass": true,
+      "detail": {
+        "a11yViolations": 0,
+        "mockedQuoteSubmissions": 1,
+        "sdkAfterConsent": 0,
+        "errors": [],
+        "failed": []
+      }
+    }
+  ],
+  "routes": [
+    {
+      "route": "/ar",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar",
+      "schemas": 3,
+      "languages": 2
+    },
+    {
+      "route": "/ar/products",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/products",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/ar/blog",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/blog",
+      "schemas": 3,
+      "languages": 2
+    },
+    {
+      "route": "/ar/completed-tenders",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/completed-tenders",
+      "schemas": 2,
+      "languages": 2
+    },
+    {
+      "route": "/ar/quote-cart",
+      "pass": true,
+      "privateNoindex": true
+    },
+    {
+      "route": "/ar/categories/%D8%A7%D9%84%D8%A5%D8%B7%D8%A7%D8%B1%D8%A7%D8%AA",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/categories/%D8%A7%D9%84%D8%A5%D8%B7%D8%A7%D8%B1%D8%A7%D8%AA",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/ar/brands/gulf",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/brands/gulf",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/ar/blog/%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1-%D8%A7%D9%84%D8%A5%D8%B7%D8%A7%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A9",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/ar/blog/%D8%AF%D9%84%D9%8A%D9%84-%D8%A7%D8%AE%D8%AA%D9%8A%D8%A7%D8%B1-%D8%A7%D9%84%D8%A5%D8%B7%D8%A7%D8%B1%D8%A7%D8%AA-%D8%A7%D9%84%D9%85%D9%86%D8%A7%D8%B3%D8%A8%D8%A9",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/en",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en",
+      "schemas": 3,
+      "languages": 2
+    },
+    {
+      "route": "/en/products",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/products",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/en/blog",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/blog",
+      "schemas": 3,
+      "languages": 2
+    },
+    {
+      "route": "/en/completed-tenders",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/completed-tenders",
+      "schemas": 2,
+      "languages": 2
+    },
+    {
+      "route": "/en/quote-cart",
+      "pass": true,
+      "privateNoindex": true
+    },
+    {
+      "route": "/en/categories/tires",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/categories/tires",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/en/brands/gulf",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/brands/gulf",
+      "schemas": 4,
+      "languages": 2
+    },
+    {
+      "route": "/en/blog/choosing-the-right-tires",
+      "pass": true,
+      "canonical": "https://alwosabifortrading.com/en/blog/choosing-the-right-tires",
+      "schemas": 4,
+      "languages": 2
+    }
+  ],
+  "marketing": {
+    "pass": true,
+    "noSdkBeforeConsent": true,
+    "oneSdkAfterConsent": true,
+    "consentedEventDispatched": true,
+    "revocationReload": true,
+    "externalRequestsSent": 0
+  },
+  "motion": {
+    "pass": true,
+    "desktopCycle": true,
+    "outOfViewportPause": true,
+    "documentVisibilityPause": true,
+    "keyboardPause": true,
+    "reducedMotion": true
+  },
+  "networkHeaders": {
+    "documents": [
+      {
+        "origin": "http://127.0.0.1:3100",
+        "status": 200,
+        "headers": {
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "connection": "keep-alive",
+          "content-encoding": "gzip",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 16 Nov 2026 22:36:17 GMT",
+          "keep-alive": "timeout=5",
+          "transfer-encoding": "chunked",
+          "vary": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding",
+          "link": "</_next/static/media/Alexandria_400_800-s.p.380dnkzcmtver.woff2>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/woff2\""
+        },
+        "performance": {
+          "hidden": false,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "interaction-contentful-paint",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "soft-navigation",
+            "visibility-state"
+          ],
+          "lcp": [],
+          "resources": [
+            {
+              "url": "http://127.0.0.1:3100/_next/static/media/Alexandria_400_800-s.p.380dnkzcmtver.woff2",
+              "protocol": "http/1.1",
+              "bytes": 94876,
+              "ttfb": 1.5999999046325684,
+              "duration": 4.5
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/image?url=%2Flogo%2Flogo-white.webp&w=128&q=75",
+              "protocol": "http/1.1",
+              "bytes": 2556,
+              "ttfb": 9.100000023841858,
+              "duration": 10.600000023841858
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/10x0ielmpppme.css",
+              "protocol": "http/1.1",
+              "bytes": 11845,
+              "ttfb": 21.899999976158142,
+              "duration": 36.700000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/2zjueh7t2vecu.js",
+              "protocol": "http/1.1",
+              "bytes": 2318,
+              "ttfb": 13.100000023841858,
+              "duration": 34.200000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/2rgbo21pjjipa.js",
+              "protocol": "http/1.1",
+              "bytes": 9180,
+              "ttfb": 18.5,
+              "duration": 35.799999952316284
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/3peubv2924kx4.js",
+              "protocol": "http/1.1",
+              "bytes": 71281,
+              "ttfb": 21.100000023841858,
+              "duration": 51.799999952316284
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/1_zmgipypuk59.js",
+              "protocol": "http/1.1",
+              "bytes": 37678,
+              "ttfb": 19.5,
+              "duration": 48.800000071525574
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/27jktro2p5rq9.js",
+              "protocol": "http/1.1",
+              "bytes": 9536,
+              "ttfb": 10.5,
+              "duration": 47.10000002384186
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/turbopack-0ts839yg8vgu7.js",
+              "protocol": "http/1.1",
+              "bytes": 4460,
+              "ttfb": 8.399999976158142,
+              "duration": 47.299999952316284
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/0x-1hj-kxjl65.js",
+              "protocol": "http/1.1",
+              "bytes": 2294,
+              "ttfb": 6.299999952316284,
+              "duration": 45.799999952316284
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/14mrh2-p_w84d.js",
+              "protocol": "http/1.1",
+              "bytes": 13175,
+              "ttfb": 12.600000023841858,
+              "duration": 61.39999997615814
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/387ik6f3_lov_.js",
+              "protocol": "http/1.1",
+              "bytes": 7311,
+              "ttfb": 10.700000047683716,
+              "duration": 61.10000002384186
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/02qf_cu5ghqzw.js",
+              "protocol": "http/1.1",
+              "bytes": 7625,
+              "ttfb": 11.799999952316284,
+              "duration": 61.40000009536743
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/20tsluaos-nua.js",
+              "protocol": "http/1.1",
+              "bytes": 13485,
+              "ttfb": 11.5,
+              "duration": 61.700000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/static/chunks/31c3i85kxcnw7.js",
+              "protocol": "http/1.1",
+              "bytes": 2841,
+              "ttfb": 10,
+              "duration": 62.200000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/images/graphics/industrial_divider.webp",
+              "protocol": "http/1.1",
+              "bytes": 43306,
+              "ttfb": 2.700000047683716,
+              "duration": 11.800000071525574
+            },
+            {
+              "url": "http://127.0.0.1:3100/_next/image?url=https%3A%2F%2Fpub-705b67fee59a4248a3e60aa3d0f44c72.r2.dev%2F7da16ee1-33c1-4e71-b480-e189b9764656%2Flarge.webp&w=256&q=75",
+              "protocol": "http/1.1",
+              "bytes": 5810,
+              "ttfb": 3,
+              "duration": 4.200000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/favicon.ico",
+              "protocol": "http/1.1",
+              "bytes": 86207,
+              "ttfb": 2.100000023841858,
+              "duration": 7.899999976158142
+            },
+            {
+              "url": "http://127.0.0.1:3100/en?_rsc=uHqCsj4SQR6vibxi",
+              "protocol": "http/1.1",
+              "bytes": 462,
+              "ttfb": 6,
+              "duration": 22.299999952316284
+            },
+            {
+              "url": "http://127.0.0.1:3100/ar/quote-cart?_rsc=uHqCsj4SQR6vibxi",
+              "protocol": "http/1.1",
+              "bytes": 473,
+              "ttfb": 10,
+              "duration": 22.200000047683716
+            },
+            {
+              "url": "http://127.0.0.1:3100/ar?_rsc=SDmtiWM5AYQMkhhI",
+              "protocol": "http/1.1",
+              "bytes": 1608,
+              "ttfb": 16.300000071525574,
+              "duration": 23.300000071525574
+            },
+            {
+              "url": "http://127.0.0.1:3100/ar/quote-cart?_rsc=SDmtiWM5AYQMkhhI",
+              "protocol": "http/1.1",
+              "bytes": 1209,
+              "ttfb": 5.700000047683716,
+              "duration": 17.100000023841858
+            },
+            {
+              "url": "http://127.0.0.1:3100/en?_rsc=SDmtiWM5AYQMkhhI",
+              "protocol": "http/1.1",
+              "bytes": 1520,
+              "ttfb": 10.200000047683716,
+              "duration": 16.299999952316284
+            }
+          ]
+        }
+      },
+      {
+        "origin": "https://alwosabifortrading.com",
+        "status": 200,
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=2592000",
+          "cache-control": "private, no-cache, no-store, max-age=0, must-revalidate",
+          "content-encoding": "gzip",
+          "content-type": "text/html; charset=utf-8",
+          "date": "Mon, 16 Nov 2026 22:36:22 GMT",
+          "link": "</_next/static/media/Alexandria_Black-s.p.1ef8_7v6eboz8.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_Bold-s.p.2-qp9jcsak4p_.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_ExtraBold-s.p.08q7fjvwaaj5k.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_Light-s.p.34sgq6h2z5i27.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_Medium-s.p.3m_il-i3ta6d7.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_Regular-s.p.2iym6stik0nba.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\", </_next/static/media/Alexandria_SemiBold-s.p.2p39tyej_b6qd.ttf>; rel=preload; as=\"font\"; crossorigin=\"\"; type=\"font/ttf\"",
+          "vary": "Accept-Encoding\nrsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch, Accept-Encoding"
+        },
+        "performance": {
+          "hidden": false,
+          "supported": [
+            "element",
+            "event",
+            "first-input",
+            "interaction-contentful-paint",
+            "largest-contentful-paint",
+            "layout-shift",
+            "long-animation-frame",
+            "longtask",
+            "mark",
+            "measure",
+            "navigation",
+            "paint",
+            "resource",
+            "soft-navigation",
+            "visibility-state"
+          ],
+          "lcp": [],
+          "resources": [
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_Black-s.p.1ef8_7v6eboz8.ttf",
+              "protocol": "h2",
+              "bytes": 80340,
+              "ttfb": 905.5,
+              "duration": 4624.5
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_Bold-s.p.2-qp9jcsak4p_.ttf",
+              "protocol": "h2",
+              "bytes": 82484,
+              "ttfb": 678.7000000476837,
+              "duration": 4162.5
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_ExtraBold-s.p.08q7fjvwaaj5k.ttf",
+              "protocol": "h2",
+              "bytes": 82299,
+              "ttfb": 949.7000000476837,
+              "duration": 4625.399999976158
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_Light-s.p.34sgq6h2z5i27.ttf",
+              "protocol": "h2",
+              "bytes": 81815,
+              "ttfb": 950,
+              "duration": 4624.299999952316
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_Medium-s.p.3m_il-i3ta6d7.ttf",
+              "protocol": "h2",
+              "bytes": 82479,
+              "ttfb": 949.7000000476837,
+              "duration": 4625.5
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_Regular-s.p.2iym6stik0nba.ttf",
+              "protocol": "h2",
+              "bytes": 80187,
+              "ttfb": 696.5999999046326,
+              "duration": 4582.600000023842
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/media/Alexandria_SemiBold-s.p.2p39tyej_b6qd.ttf",
+              "protocol": "h2",
+              "bytes": 82484,
+              "ttfb": 949.4000000953674,
+              "duration": 4625.899999976158
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/image?url=%2Flogo%2Flogo-white.png&w=640&q=75",
+              "protocol": "h2",
+              "bytes": 17363,
+              "ttfb": 948.7999999523163,
+              "duration": 2381.5999999046326
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/image?url=%2Flogo%2Flogo-white.png&w=256&q=75",
+              "protocol": "h2",
+              "bytes": 6027,
+              "ttfb": 948.9000000953674,
+              "duration": 2381.600000023842
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/2t-96b9d08_s3.css",
+              "protocol": "h2",
+              "bytes": 11710,
+              "ttfb": 949.2999999523163,
+              "duration": 3377.600000023842
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/image?url=https%3A%2F%2Fpub-705b67fee59a4248a3e60aa3d0f44c72.r2.dev%2F7da16ee1-33c1-4e71-b480-e189b9764656%2Flarge.webp&w=384&q=75",
+              "protocol": "h2",
+              "bytes": 11041,
+              "ttfb": 943,
+              "duration": 3377.7999999523163
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/2zjueh7t2vecu.js",
+              "protocol": "h2",
+              "bytes": 2318,
+              "ttfb": 942.1000000238419,
+              "duration": 3377.7999999523163
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/0bjgdisdcvnkx.js",
+              "protocol": "h2",
+              "bytes": 9191,
+              "ttfb": 942.2000000476837,
+              "duration": 3377.7999999523163
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/3peubv2924kx4.js",
+              "protocol": "h2",
+              "bytes": 71281,
+              "ttfb": 942.1000000238419,
+              "duration": 4624.399999976158
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/27jktro2p5rq9.js",
+              "protocol": "h2",
+              "bytes": 9536,
+              "ttfb": 941.2000000476837,
+              "duration": 3619.2000000476837
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/1_zmgipypuk59.js",
+              "protocol": "h2",
+              "bytes": 37678,
+              "ttfb": 941.6999999284744,
+              "duration": 4404.800000071526
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/0x-1hj-kxjl65.js",
+              "protocol": "h2",
+              "bytes": 2294,
+              "ttfb": 941.0999999046326,
+              "duration": 3619.5
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/turbopack-2yuz-g-hj5gyl.js",
+              "protocol": "h2",
+              "bytes": 4462,
+              "ttfb": 941.4000000953674,
+              "duration": 3619.399999976158
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/14mrh2-p_w84d.js",
+              "protocol": "h2",
+              "bytes": 13175,
+              "ttfb": 940.7999999523163,
+              "duration": 3619.600000023842
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/2f0cp4t1v4dqw.js",
+              "protocol": "h2",
+              "bytes": 2476,
+              "ttfb": 940.7999999523163,
+              "duration": 3619.5
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/45546qxvzuou-.js",
+              "protocol": "h2",
+              "bytes": 11741,
+              "ttfb": 940.2999999523163,
+              "duration": 3637
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/2c_wo2--msv19.js",
+              "protocol": "h2",
+              "bytes": 45752,
+              "ttfb": 940.7000000476837,
+              "duration": 4404.899999976158
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/0-o3kmy-aelqz.js",
+              "protocol": "h2",
+              "bytes": 11668,
+              "ttfb": 940.3999999761581,
+              "duration": 3637.100000023842
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/02bx_g5btjzhn.js",
+              "protocol": "h2",
+              "bytes": 14293,
+              "ttfb": 940.2000000476837,
+              "duration": 3637.1999999284744
+            },
+            {
+              "url": "https://alwosabifortrading.com/_next/static/chunks/3soet1rpbej2n.js",
+              "protocol": "h2",
+              "bytes": 3714,
+              "ttfb": 939.9000000953674,
+              "duration": 3637.1999999284744
+            }
+          ]
+        }
+      }
+    ],
+    "samples": [
+      {
+        "url": "https://api-alwosabe.smartagency-ye.com/api/v1/public/settings",
+        "status": 200,
+        "ttfb": 742.7137999999995,
+        "headers": {
+          "access-control-allow-credentials": "true",
+          "alt-svc": "h3=\":443\"; ma=2592000",
+          "content-length": "153",
+          "content-type": "application/json; charset=utf-8",
+          "cross-origin-opener-policy": "same-origin",
+          "cross-origin-resource-policy": "cross-origin",
+          "date": "Mon, 16 Nov 2026 22:36:28 GMT",
+          "etag": "W/\"99-UN3YTtC8g1PC8nSyqXoCAJwHMxU\"",
+          "origin-agent-cluster": "?1",
+          "referrer-policy": "no-referrer",
+          "strict-transport-security": "max-age=15552000; includeSubDomains",
+          "vary": "Accept-Encoding, Origin",
+          "x-content-type-options": "nosniff",
+          "x-dns-prefetch-control": "off",
+          "x-download-options": "noopen",
+          "x-frame-options": "SAMEORIGIN",
+          "x-permitted-cross-domain-policies": "none",
+          "x-ratelimit-limit": "120",
+          "x-ratelimit-remaining": "119",
+          "x-ratelimit-reset": "60",
+          "x-xss-protection": "0"
+        }
+      },
+      {
+        "url": "https://pub-705b67fee59a4248a3e60aa3d0f44c72.r2.dev/7da16ee1-33c1-4e71-b480-e189b9764656/large.webp",
+        "status": 200,
+        "ttfb": 1008.0188999999991,
+        "headers": {
+          "accept-ranges": "bytes",
+          "cache-control": "public, max-age=31536000, immutable",
+          "cf-ray": "a5b9f989b9c7f9ef-MCT",
+          "connection": "keep-alive",
+          "content-length": "114124",
+          "content-type": "image/webp",
+          "date": "Mon, 16 Nov 2026 22:36:29 GMT",
+          "etag": "\"193d2a41c3880d127ccd0b59500231d7\"",
+          "last-modified": "Mon, 20 Jul 2026 21:52:39 GMT",
+          "server": "cloudflare"
+        }
+      }
+    ],
+    "assets": [
+      {
+        "url": "http://127.0.0.1:3100/_next/static/media/Alexandria_400_800-s.p.380dnkzcmtver.woff2",
+        "status": 200,
+        "ttfb": 35.416,
+        "headers": {
+          "accept-ranges": "bytes",
+          "cache-control": "public, max-age=31536000, immutable",
+          "connection": "keep-alive",
+          "content-length": "94576",
+          "content-type": "font/woff2",
+          "date": "Mon, 16 Nov 2026 22:37:15 GMT",
+          "etag": "W/\"17170-1a1e67a2277\"",
+          "keep-alive": "timeout=5",
+          "last-modified": "Mon, 16 Nov 2026 22:28:46 GMT"
+        }
+      },
+      {
+        "url": "https://alwosabifortrading.com/_next/static/chunks/2zjueh7t2vecu.js",
+        "status": 200,
+        "ttfb": 1933.8038999999999,
+        "headers": {
+          "accept-ranges": "bytes",
+          "alt-svc": "h3=\":443\"; ma=2592000",
+          "cache-control": "public, max-age=31536000, immutable",
+          "content-encoding": "gzip",
+          "content-type": "application/javascript; charset=UTF-8",
+          "date": "Mon, 16 Nov 2026 22:37:19 GMT",
+          "etag": "W/\"15d3-1a1e5e5d840\"",
+          "last-modified": "Mon, 16 Nov 2026 19:46:48 GMT",
+          "vary": "Accept-Encoding, Accept-Encoding"
+        }
+      },
+      {
+        "url": "http://127.0.0.1:3100/_next/image?url=https%3A%2F%2Fpub-705b67fee59a4248a3e60aa3d0f44c72.r2.dev%2F7da16ee1-33c1-4e71-b480-e189b9764656%2Flarge.webp&w=256&q=75",
+        "status": 200,
+        "ttfb": 5.61180000000013,
+        "headers": {
+          "cache-control": "public, max-age=31536000, must-revalidate",
+          "connection": "keep-alive",
+          "content-disposition": "attachment; filename=\"large.webp\"",
+          "content-length": "5510",
+          "content-security-policy": "script-src 'none'; frame-src 'none'; sandbox;",
+          "content-type": "image/webp",
+          "date": "Mon, 16 Nov 2026 22:37:17 GMT",
+          "etag": "zXPdOOaEPY2Ow0q5WzL1GwfXGOlZfybSlzX38egi8iI",
+          "keep-alive": "timeout=5",
+          "vary": "Accept",
+          "x-nextjs-cache": "HIT"
+        }
+      }
+    ]
+  },
+  "fixtureProductDetails": [
+    {
+      "locale": "ar",
+      "status": 200,
+      "fixture": true,
+      "pass": true
+    },
+    {
+      "locale": "en",
+      "status": 200,
+      "fixture": true,
+      "pass": true
+    }
+  ]
+}

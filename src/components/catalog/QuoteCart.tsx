@@ -62,7 +62,7 @@ export function useQuoteCart() {
 }
 export function CartLink({ locale }: { locale: Locale }) {
   const { items } = useQuoteCart();
-  return <Link href={`/${locale}/quote-cart`} className="focus-ring flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-white/20 px-3 text-white" aria-label={`${locale === 'ar' ? 'سلة عرض السعر' : 'Quote cart'} (${items.length})`}><ShoppingBag size={19} /><span aria-hidden="true">{items.length}</span></Link>;
+  return <Link href={`/${locale}/quote-cart`} className="focus-ring flex min-h-11 shrink-0 items-center gap-2 rounded-lg border border-white/20 px-3 text-white"><ShoppingBag size={19} aria-hidden="true" /><span className="sr-only">{locale === 'ar' ? 'سلة عرض السعر' : 'Quote cart'} </span><span>{items.length}</span></Link>;
 }
 export function AddToQuote({ product, locale }: { product: Product; locale: Locale }) {
   const cart = useQuoteCart();

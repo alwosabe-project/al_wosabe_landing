@@ -37,7 +37,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
           <p className="mt-6 text-xl leading-9 text-graphite-600">{post.excerpt}</p>
           {post.coverImage && (
             <div className="relative mt-10 aspect-[16/9] overflow-hidden rounded-3xl">
-              <Image src={post.coverImage.url} alt={post.title} fill priority className="object-cover" />
+              <Image src={post.coverImage.url} alt={post.title} fill priority sizes="(max-width: 896px) 100vw, 856px" className="object-cover" />
             </div>
           )}
           <div className="prose-content mt-12 text-lg leading-9 text-graphite-700" dangerouslySetInnerHTML={{ __html: post.contentHtml }} />

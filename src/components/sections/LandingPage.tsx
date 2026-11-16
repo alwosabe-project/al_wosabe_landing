@@ -1,11 +1,6 @@
-"use client";
-"use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Building2, CheckCircle2, MapPin, Package, Phone, Truck, X } from "lucide-react";
-import { motion, AnimatePresence } from "framer-motion";
+import { Building2, CheckCircle2, Package, Truck } from "lucide-react";
 import { AnimatedCounter } from "@/components/ui/AnimatedCounter";
 
 import { Button } from "@/components/ui/Button";
@@ -14,11 +9,11 @@ import { ProductCategoryCard } from "@/components/ui/ProductCategoryCard";
 import { Reveal } from "@/components/ui/Reveal";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { QuoteForm } from "@/components/sections/QuoteForm";
-import { SplitTextReveal } from "@/components/ui/SplitTextReveal";
 import { ParallaxImage } from "@/components/ui/ParallaxImage";
 import { BrandMarquee } from "@/components/ui/BrandMarquee";
-import { AnimatedRouteMap } from "@/components/ui/AnimatedRouteMap";
-import { ProductShowcase, useShowcaseCycle } from "@/components/ui/ProductShowcase";
+import { Hero } from "@/components/sections/Hero";
+import { Distribution } from "@/components/sections/Distribution";
+import { Branches } from "@/components/sections/Branches";
 import {
   branches,
   company,
@@ -28,7 +23,7 @@ import {
 } from "@/data/site";
 import type { Locale } from "@/lib/locales";
 import type { BlogPost, Brand, Category, Product } from "@/lib/api";
-import { cn, phoneHref, whatsappHref } from "@/lib/utils";
+import { cn, whatsappHref } from "@/lib/utils";
 
 export type HomeData = { categories: Category[]; brands: Brand[]; featured: Product[]; posts: BlogPost[] };
 
@@ -38,16 +33,16 @@ export function LandingPage({ locale, home, whatsappNumber }: { locale: Locale; 
   return (
     <>
       <main className="overflow-x-hidden">
-        <Hero locale={locale} years={years} categories={home.categories} featured={home.featured} />
+        <Hero locale={locale} years={years} categories={home.categories} featured={home.featured} hero={content[locale].hero} branchCount={branches.length} />
         <Stats locale={locale} years={years} />
         <About locale={locale} />
         <Operations locale={locale} />
         <Products locale={locale} categories={home.categories} />
         <Brands locale={locale} brands={home.brands} />
         <LatestPosts locale={locale} posts={home.posts} />
-        <Distribution locale={locale} />
+        <Distribution locale={locale} heading={<SectionHeading {...content[locale].distribution} dark />} />
         <Fleet locale={locale} />
-        <Branches locale={locale} />
+        <Branches locale={locale} heading={<SectionHeading {...content[locale].branches} />} />
         <Values locale={locale} />
         <Team locale={locale} />
         <Quote locale={locale} categories={home.categories} whatsappNumber={whatsappNumber} />
@@ -70,138 +65,6 @@ export function LandingPage({ locale, home, whatsappNumber }: { locale: Locale; 
 }
 
 /* ───────────────────────── Hero ───────────────────────── */
-function Hero({ locale, years, categories, featured }: { locale: Locale; years: number; categories: Category[]; featured: Product[] }) {
-  const hero = content[locale].hero;
-  const isAr = locale === "ar";
-  const source = featured.length ? featured : categories;
-  const showcaseProducts = source.length ? source.map((item) => {
-    const isProduct = "shortDescription" in item;
-    return { title: item.name, description: isProduct ? item.shortDescription : item.description, image: (isProduct ? item.mainImage?.url : item.image?.url) || "/images/hero/hero-warehouse.webp", icon: Package, category: isProduct ? item.primaryCategory?.name || (isAr ? "منتج" : "Product") : (isAr ? "فئة" : "Category") };
-  }) : [{ title: isAr ? "حلول المركبات" : "Vehicle solutions", description: hero.description, image: "/images/hero/hero-warehouse.webp", icon: Package, category: isAr ? "الوصابي" : "Al-Wosabe" }];
-  const { active, setActive, setPaused, reduce } = useShowcaseCycle(showcaseProducts.length);
-  const activeTitle = showcaseProducts[active].title;
-
-  const credentials: [string, string][] = isAr
-    ? [
-        ["1986", "سنة التأسيس"],
-        [`${years}+`, "عامًا من الخبرة"],
-        [`${branches.length}`, "فروع رئيسية"],
-        ["50K+", "عميل وتاجر"],
-      ]
-    : [
-        ["1986", "Established"],
-        [`${years}+`, "Years"],
-        [`${branches.length}`, "Branches"],
-        ["50K+", "Clients"],
-      ];
-
-  return (
-    <section
-      id="home"
-      className="relative flex min-h-[760px] items-center overflow-hidden bg-ink-950 pt-28 text-on-dark md:min-h-screen"
-    >
-      {/* Single quiet ambient layer + faint engineering grid */}
-      <div className="ambient-dark pointer-events-none absolute inset-0 z-0" />
-      <div className="blueprint-grid pointer-events-none absolute inset-0 z-0 opacity-70" />
-
-      <Container className="relative z-10 grid min-h-[calc(100vh-7rem)] items-center gap-12 py-16 lg:grid-cols-[1.02fr_0.98fr] lg:gap-10">
-        {/* Copy column */}
-        <div className="flex w-full min-w-0 flex-col items-center text-center lg:items-start lg:text-start">
-          <Reveal delay={0.05}>
-            <span className="mb-6 inline-flex items-center gap-2.5 rounded-full border border-white/10 bg-white/[0.04] py-1.5 ps-2.5 pe-4 text-xs font-bold uppercase tracking-[0.18em] text-steel-300 backdrop-blur">
-              <span className="h-1.5 w-1.5 rounded-full bg-brand" />
-              {hero.eyebrow}
-            </span>
-          </Reveal>
-
-          <h1 className="font-display w-full text-center text-[2.6rem] font-extrabold leading-[1.06] tracking-tight text-white sm:text-6xl lg:text-start lg:text-[4.25rem] xl:text-[4.75rem]">
-            <SplitTextReveal text={isAr ? "الوصابي" : "Al-Wosabe"} />{" "}
-            <span className="text-gradient">
-              <SplitTextReveal text={isAr ? "للتجارة" : "for Trading"} />
-            </span>
-          </h1>
-
-          {/* Kinetic line synced to the product showcase */}
-          <Reveal delay={0.25} className="w-full">
-            <p className="mt-6 flex w-full flex-wrap items-center justify-center gap-x-2.5 gap-y-1 text-lg font-bold text-steel-300 sm:text-xl lg:justify-start">
-              <span>{isAr ? "نوفّر لكل مركبة" : "Everything your vehicle needs"}</span>
-              <span aria-hidden="true" className="text-steel-500">—</span>
-              <span className="relative inline-flex min-h-[1.5em] max-w-full items-center">
-                <AnimatePresence mode="wait">
-                  <motion.span
-                    key={active}
-                    className="text-gradient font-extrabold"
-                    initial={reduce ? { opacity: 0 } : { opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={reduce ? { opacity: 0 } : { opacity: 0, y: -14 }}
-                    transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                  >
-                    {activeTitle}
-                  </motion.span>
-                </AnimatePresence>
-              </span>
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.35} className="flex w-full justify-center lg:justify-start">
-            <p className="mt-4 max-w-xl text-base leading-[1.9] text-steel-400">{hero.description}</p>
-          </Reveal>
-
-          <Reveal delay={0.45} className="flex w-full justify-center lg:justify-start">
-            <div className="mt-9 flex w-full max-w-md flex-row gap-3 sm:w-auto sm:max-w-none">
-              <Button href="#quote" className="flex-1 sm:flex-none">
-                {hero.primary}
-                <ArrowUpRight aria-hidden="true" size={18} className="rtl:-scale-x-100" />
-              </Button>
-              <Button href="#products" variant="secondary" className="flex-1 sm:flex-none">
-                {hero.secondary}
-              </Button>
-            </div>
-          </Reveal>
-
-          {/* Credential strip */}
-          <Reveal delay={0.55} className="w-full">
-            <div className="mt-12 flex w-full items-stretch justify-center gap-0 lg:justify-start">
-              {credentials.map(([value, label], i) => (
-                <div key={label} className="flex items-stretch">
-                  {i > 0 && <span className="mx-4 w-px self-stretch bg-white/10 sm:mx-6" aria-hidden="true" />}
-                  <div className="text-center lg:text-start">
-                    <div className="font-display text-2xl font-extrabold tabular-nums text-white sm:text-3xl">
-                      {value}
-                    </div>
-                    <div className="mt-1 text-[11px] font-bold uppercase tracking-wider text-steel-400">
-                      {label}
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </Reveal>
-        </div>
-
-        {/* Kinetic product showcase */}
-        <Reveal delay={0.2} direction="left" className="w-full min-w-0 max-lg:order-2">
-          <ProductShowcase
-            products={showcaseProducts}
-            locale={locale}
-            active={active}
-            onSelect={setActive}
-            onPauseChange={setPaused}
-          />
-        </Reveal>
-      </Container>
-
-      <div
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[2] h-28 w-full bg-no-repeat"
-        style={{
-          backgroundImage: "url('/images/graphics/industrial_divider.png')",
-          backgroundSize: "100% 100%",
-        }}
-      />
-    </section>
-  );
-}
-
 /* ───────────────────────── Stats ───────────────────────── */
 function Stats({ locale, years }: { locale: Locale; years: number }) {
   const stats = content[locale].stats;
@@ -331,7 +194,7 @@ function Operations({ locale }: { locale: Locale }) {
                   {i + 1}
                 </span>
                 <div>
-                  <h4 className="text-base font-bold text-ink-900">{title}</h4>
+                  <h3 className="text-base font-bold text-ink-900">{title}</h3>
                   <p className="mt-1.5 text-sm leading-7 text-graphite-600">{body}</p>
                 </div>
               </div>
@@ -398,68 +261,19 @@ function LatestPosts({ locale, posts }: { locale: Locale; posts: BlogPost[] }) {
           {posts.slice(0, 3).map((post, index) => (
             <Reveal key={post.id} delay={index * 0.08}>
               <Link href={`/${locale}/blog/${post.slug}`} className="group block overflow-hidden rounded-2xl border border-steel-200 bg-paper shadow-[var(--shadow-elev-1)]">
-                <div className="relative aspect-[16/9] bg-sand-50">{post.coverImage && <Image src={post.coverImage.url} alt={post.title} fill className="object-cover transition duration-500 group-hover:scale-105" />}</div>
+                <div className="relative aspect-[16/9] bg-sand-50">{post.coverImage && <Image src={post.coverImage.url} alt={post.title} fill sizes="(max-width: 768px) 100vw, (max-width: 1280px) 33vw, 400px" className="object-cover transition duration-500 group-hover:scale-105" />}</div>
                 <div className="p-5"><h3 className="font-display text-lg font-bold text-ink-900">{post.title}</h3><p className="mt-2 line-clamp-2 text-sm leading-7 text-graphite-600">{post.excerpt}</p></div>
               </Link>
             </Reveal>
           ))}
         </div>
-        <Link className="mt-8 inline-flex font-bold text-brand" href={`/${locale}/blog`}>{locale === "ar" ? "عرض كل المقالات" : "View all articles"} ←</Link>
+        <Link className="mt-8 inline-flex font-bold text-brand-ember" href={`/${locale}/blog`}>{locale === "ar" ? "عرض كل المقالات" : "View all articles"} ←</Link>
       </Container>
     </section>
   );
 }
 
 /* ───────────────────────── Distribution ───────────────────────── */
-function Distribution({ locale }: { locale: Locale }) {
-  const [hoveredCity, setHoveredCity] = useState<string | null>(null);
-  const copy = content[locale].distribution;
-
-  return (
-    <section id="distribution" className="relative overflow-hidden bg-ink-950 py-20 text-on-dark sm:py-28">
-      <div className="ambient-dark pointer-events-none absolute inset-0" />
-      <div className="blueprint-grid pointer-events-none absolute inset-0 opacity-60" />
-
-      <Container className="relative grid gap-14 lg:grid-cols-[0.9fr_1.1fr] lg:items-center">
-        <Reveal>
-          <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} dark />
-          <div className="mt-9 grid grid-cols-4 gap-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-3">
-            {branches.map((branch) => {
-              const active = hoveredCity === branch.city.en;
-              return (
-                <button
-                  key={branch.city.en}
-                  type="button"
-                  onMouseEnter={() => setHoveredCity(branch.city.en)}
-                  onMouseLeave={() => setHoveredCity(null)}
-                  onClick={() => setHoveredCity(branch.city.en)}
-                  className={cn(
-                    "focus-ring flex flex-col items-center justify-center gap-1 rounded-lg border p-2 text-center text-[10px] font-bold transition-all duration-300 sm:flex-row sm:gap-2 sm:text-xs md:text-sm",
-                    active
-                      ? "border-brand bg-brand/15 text-white"
-                      : "border-white/8 bg-white/[0.04] text-steel-400 hover:border-brand/30 hover:bg-white/[0.07] hover:text-steel-100",
-                  )}
-                >
-                  <MapPin
-                    size={12}
-                    aria-hidden="true"
-                    className={cn("shrink-0 transition-all duration-300", active ? "scale-110 text-brand-bright" : "text-brand")}
-                  />
-                  <span className="max-w-full truncate">{branch.city[locale]}</span>
-                </button>
-              );
-            })}
-          </div>
-        </Reveal>
-
-        <Reveal direction="left">
-          <AnimatedRouteMap locale={locale} hoveredCity={hoveredCity} setHoveredCity={setHoveredCity} />
-        </Reveal>
-      </Container>
-    </section>
-  );
-}
-
 /* ───────────────────────── Fleet ───────────────────────── */
 function Fleet({ locale }: { locale: Locale }) {
   const copy = content[locale].fleet;
@@ -534,109 +348,6 @@ function Fleet({ locale }: { locale: Locale }) {
 }
 
 /* ───────────────────────── Branches + Modal ───────────────────────── */
-function Branches({ locale }: { locale: Locale }) {
-  const copy = content[locale].branches;
-  const [selectedBranch, setSelectedBranch] = useState<(typeof branches)[0] | null>(null);
-
-  return (
-    <section id="branches" className="bg-sand-50 py-20 sm:py-28">
-      <Container>
-        <SectionHeading eyebrow={copy.eyebrow} title={copy.title} description={copy.description} />
-        <div className="mt-14 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-2 xl:grid-cols-3">
-          {branches.map((branch, index) => (
-            <Reveal key={branch.city.en} delay={index * 0.04}>
-              <button
-                onClick={() => setSelectedBranch(branch)}
-                className="card-rise focus-ring group flex w-full items-center justify-between rounded-2xl border border-steel-200 bg-paper p-4 text-start shadow-[var(--shadow-elev-1)] hover:border-brand/40 md:p-6"
-              >
-                <div className="flex items-center gap-3 overflow-hidden md:gap-4">
-                  <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[image:var(--grad-dark)] text-brand-bright shadow-[var(--shadow-elev-1)] transition-all duration-300 group-hover:bg-[image:var(--grad-brand)] group-hover:text-ink-950 md:h-12 md:w-12">
-                    <MapPin className="h-5 w-5" aria-hidden="true" />
-                  </span>
-                  <div className="overflow-hidden">
-                    <h3 className="truncate text-base font-bold text-ink-900 transition-colors group-hover:text-brand-deep md:text-lg">
-                      {branch.city[locale]}
-                    </h3>
-                    <span className="mt-0.5 block truncate text-[11px] text-graphite-500">
-                      {locale === "ar" ? "اضغط للتواصل" : "Click to connect"}
-                    </span>
-                  </div>
-                </div>
-                <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-steel-100 text-brand-deep transition-all duration-300 group-hover:bg-brand group-hover:text-ink-950">
-                  <Phone className="h-4 w-4" />
-                </span>
-              </button>
-            </Reveal>
-          ))}
-        </div>
-      </Container>
-
-      <AnimatePresence>
-        {selectedBranch && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedBranch(null)}
-              className="absolute inset-0 bg-ink-950/70 backdrop-blur-md"
-            />
-            <motion.div
-              initial={{ scale: 0.96, opacity: 0, y: 14 }}
-              animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.96, opacity: 0, y: 14 }}
-              transition={{ type: "spring", duration: 0.4 }}
-              className="relative z-10 w-full max-w-md overflow-hidden rounded-2xl border border-white/10 bg-ink-900 p-6 text-white shadow-[var(--shadow-elev-3)]"
-            >
-              <div className="absolute inset-x-0 top-0 h-1 bg-[image:var(--grad-brand)]" />
-              <button
-                onClick={() => setSelectedBranch(null)}
-                className="focus-ring absolute top-4 end-4 flex h-9 w-9 items-center justify-center rounded-full border border-white/10 bg-white/5 text-steel-300 transition-all hover:bg-white/10 hover:text-white"
-                aria-label={locale === "ar" ? "إغلاق" : "Close"}
-              >
-                <X size={18} />
-              </button>
-
-              <div className="mb-6 flex items-center gap-3.5 text-start">
-                <span className="chrome flex h-12 w-12 items-center justify-center rounded-xl text-ink-950">
-                  <MapPin size={22} />
-                </span>
-                <div>
-                  <h3 className="font-display text-xl font-extrabold">{selectedBranch.city[locale]}</h3>
-                  <p className="mt-0.5 text-xs font-semibold uppercase tracking-wider text-brand-bright">
-                    {locale === "ar" ? "أرقام التواصل والفرع" : "Branch Contact Numbers"}
-                  </p>
-                </div>
-              </div>
-
-              <div className="max-h-[300px] space-y-3 overflow-y-auto pe-1">
-                {selectedBranch.phones.map((phone) => (
-                  <a
-                    key={phone}
-                    href={phoneHref(phone)}
-                    className="group flex items-center justify-between gap-4 rounded-xl border border-white/8 bg-white/5 px-4 py-3.5 text-sm font-bold text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10 hover:text-brand-bright"
-                  >
-                    <span dir="ltr">{phone}</span>
-                    <span className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-steel-300 transition-colors duration-300 group-hover:bg-brand group-hover:text-ink-950">
-                      <Phone size={14} />
-                    </span>
-                  </a>
-                ))}
-              </div>
-
-              <div className="mt-6 border-t border-white/8 pt-4 text-center">
-                <p className="text-xs text-steel-400">
-                  {locale === "ar" ? "جميع الأرقام قابلة للضغط للاتصال المباشر" : "All numbers are clickable for direct calls"}
-                </p>
-              </div>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-    </section>
-  );
-}
-
 /* ───────────────────────── Values ───────────────────────── */
 function Values({ locale }: { locale: Locale }) {
   const copy = content[locale].values;
@@ -730,9 +441,9 @@ function Team({ locale }: { locale: Locale }) {
                   <Icon aria-hidden="true" size={22} />
                 </span>
                 <div>
-                  <h4 className="text-base font-bold text-ink-900 transition-colors duration-300 group-hover:text-brand-deep">
+                  <h3 className="text-base font-bold text-ink-900 transition-colors duration-300 group-hover:text-brand-deep">
                     {title}
-                  </h4>
+                  </h3>
                   <p className="mt-1.5 text-sm leading-7 text-graphite-600">{description}</p>
                 </div>
               </div>

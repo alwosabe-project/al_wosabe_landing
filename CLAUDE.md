@@ -2,7 +2,7 @@
 
 ## Overview
 
-Al Wosabe Landing — a bilingual (Arabic/English) landing page for Al Wosabe, built with Next.js 16, React 19, Tailwind 4, and Framer Motion. Arabic is the primary language and the site is RTL.
+Al Wosabe Landing — a bilingual (Arabic/English) landing page for Al Wosabe, built with Next.js 16, React 19, Tailwind 4, and progressive CSS animations. Arabic is the primary language and the site is RTL.
 
 ## Commands
 
@@ -16,7 +16,7 @@ npm run lint     # eslint
 
 - **Framework:** Next.js 16 App Router with `[locale]` dynamic route for i18n.
 - **Styling:** Tailwind CSS 4 via PostCSS.
-- **Animations:** Framer Motion (parallax, reveal, counters, marquee, page transitions).
+- **Animations:** CSS scroll timelines and desktop effects; native IntersectionObserver for counters and interactive islands. All primary content is visible in SSR.
 - **Icons:** Lucide React.
 - **Deployment:** Docker (`standalone` output mode).
 

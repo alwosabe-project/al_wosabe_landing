@@ -1,10 +1,10 @@
 "use client";
 
-import { motion, useReducedMotion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Phone, MapPin, X } from "lucide-react";
 import { branches } from "@/data/site";
 import { phoneHref } from "@/lib/utils";
+import { useMotionActivity } from "@/components/ui/useMotionActivity";
 
 /**
  * Distribution routes connecting the branch cities. Coordinates are in the
@@ -35,7 +35,7 @@ export function AnimatedRouteMap({
   setHoveredCity: (city: string | null) => void;
 }) {
   const isAr = locale === "ar";
-  const shouldReduceMotion = useReducedMotion();
+  const { ref, animate } = useMotionActivity();
 
   const labels = {
     ar: {
@@ -58,7 +58,7 @@ export function AnimatedRouteMap({
   const activeBranch = branches.find((b) => b.city.en === hoveredCity);
 
   return (
-    <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/90 p-4 shadow-[var(--shadow-elev-3)] backdrop-blur-md">
+    <div ref={ref} className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900/90 p-4 shadow-[var(--shadow-elev-3)] backdrop-blur-md">
       {/* Top accent indicator */}
       <div className="pointer-events-none absolute inset-x-0 top-0 h-[2px] bg-gradient-to-r from-transparent via-brand to-transparent" />
 
@@ -68,7 +68,8 @@ export function AnimatedRouteMap({
         <div className="absolute inset-0 z-0 opacity-40 pointer-events-none">
           <Image
             src="/images/graphics/yemen-map-clean.svg"
-            alt="Yemen Map Grid"
+            alt=""
+            sizes="(max-width: 1024px) 100vw, 640px"
             fill
             className="object-fill"
           />
@@ -96,7 +97,7 @@ export function AnimatedRouteMap({
 
           {/* Distribution route lines — locked to the branch dots (see ROUTES) */}
           {ROUTES.map((route, i) => (
-            <motion.path
+            <path
               key={`route-${i}`}
               d={route.d}
               fill="none"
@@ -104,16 +105,12 @@ export function AnimatedRouteMap({
               strokeWidth="0.8"
               strokeDasharray="4 3"
               strokeLinecap="round"
-              initial={shouldReduceMotion ? { pathLength: 1 } : { pathLength: 0 }}
-              whileInView={{ pathLength: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: route.drawDur, ease: "easeOut", delay: route.delay }}
               className="opacity-60"
             />
           ))}
 
           {/* Animated delivery signals travelling each route (active fleet) */}
-          {!shouldReduceMotion &&
+          {animate &&
             ROUTES.map((route, i) => (
               <circle key={`signal-${i}`} r="1" fill={i % 2 ? "#ED8B00" : "#F8A21E"} filter="url(#glow-map-effect)">
                 <animateMotion path={route.d} dur={`${route.signalDur}s`} repeatCount="indefinite" />
@@ -133,6 +130,17 @@ export function AnimatedRouteMap({
             return (
               <g
                 key={branch.city.en}
+                role="button"
+                tabIndex={0}
+                aria-label={branch.city[locale]}
+                aria-pressed={isHovered}
+                onFocus={() => setHoveredCity(branch.city.en)}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    setHoveredCity(branch.city.en);
+                  } else if (event.key === "Escape") setHoveredCity(null);
+                }}
                 onMouseEnter={() => setHoveredCity(branch.city.en)}
                 onMouseLeave={() => setHoveredCity(null)}
                 onClick={() => setHoveredCity(branch.city.en)}
@@ -151,7 +159,7 @@ export function AnimatedRouteMap({
                     transformOrigin: `${branch.x}% ${branch.y}%`,
                   }}
                 >
-                  {!isHovered && !shouldReduceMotion && (
+                  {!isHovered && animate && (
                     <animate
                       attributeName="r"
                       values="3.5;5;3.5"
@@ -172,14 +180,10 @@ export function AnimatedRouteMap({
                 />
 
                 {/* Desktop Overlay Tooltips with smooth fade */}
-                <AnimatePresence>
+
                   {isHovered && (
-                    <motion.g
+                    <g
                       className="hidden md:block"
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.25, ease: "easeOut" }}
                     >
                       <rect
                         x={tipX}
@@ -205,15 +209,14 @@ export function AnimatedRouteMap({
                         x={txtX}
                         y={branch.y - 1}
                         textAnchor={anchor}
-                        fill="rgba(255, 255, 255, 0.5)"
+                        fill="#c2c5c9"
                         fontSize="3.0"
                         fontWeight="700"
                       >
                         {branch.phones.length} {branch.phones.length > 1 ? labels.phoneCountPlural : labels.phoneCountSingular}
                       </text>
-                    </motion.g>
+                    </g>
                   )}
-                </AnimatePresence>
 
                 {/* Static Text labels for visible cities when NOT hovered */}
                 {!isHovered && (
@@ -221,7 +224,7 @@ export function AnimatedRouteMap({
                     x={labelX}
                     y={branch.y - 1.5}
                     textAnchor={anchor}
-                    fill="rgba(255, 255, 255, 0.6)"
+                    fill="#c2c5c9"
                     fontSize="3"
                     fontWeight="700"
                     className="pointer-events-none"
@@ -252,9 +255,9 @@ export function AnimatedRouteMap({
                 <MapPin size={16} />
               </span>
               <div>
-                <h4 className="font-display text-sm font-bold text-white">
+                <h3 className="font-display text-sm font-bold text-white">
                   {activeBranch.city[locale]}
-                </h4>
+                </h3>
                 <p className="text-xs text-steel-400">
                   {activeBranch.phones.length} {activeBranch.phones.length > 1 ? labels.phoneCountPlural : labels.phoneCountSingular}
                 </p>

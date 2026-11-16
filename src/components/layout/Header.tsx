@@ -4,18 +4,19 @@ import { CartLink } from '@/components/catalog/QuoteCart';
 import Image from "next/image";
 import Link from "next/link";
 import { Globe, Menu, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { company, content, navigation } from "@/data/site";
+import { useEffect, useRef, useState } from "react";
+import { quoteCta, navigation } from "@/data/site";
 import type { Locale } from "@/lib/locales";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 
 export function Header({ locale, alternatePaths }: { locale: Locale; alternatePaths?: Record<string, string> }) {
+  const menuButton = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState<string>("home");
   const otherLocale = locale === "ar" ? "en" : "ar";
-  const labels = content[locale];
+  const cta = quoteCta[locale];
   const links = navigation[locale];
 
   useEffect(() => {
@@ -66,6 +67,7 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
 
   return (
     <header
+      onKeyDown={(event) => { if (event.key === "Escape") { setOpen(false); menuButton.current?.focus(); } }}
       className={cn(
         "fixed inset-x-0 top-0 z-50 transition-all duration-500",
         scrolled
@@ -80,10 +82,11 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
           aria-label={locale === "ar" ? "الوصابي للتجارة" : "Al-Wosabe for Trading"}
         >
           <Image
-            src="/logo/logo-white.png"
+            src="/logo/logo-white.webp"
             alt=""
             width={220}
             height={55}
+            sizes="(max-width: 640px) 110px, (max-width: 1280px) 147px, 162px"
             priority
             className="h-8 w-auto max-w-[110px] object-contain transition-opacity duration-300 group-hover:opacity-90 sm:h-10 sm:max-w-none xl:h-11"
           />
@@ -119,7 +122,7 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
             <Globe className="h-5 w-5 text-steel-300 transition-transform duration-500 group-hover:rotate-12 group-hover:text-brand-bright" />
           </Link>
           <Button href={`/${locale}/quote-cart`} className="min-h-11 px-4 py-2">
-            {labels.cta}
+            {cta}
           </Button>
         </div>
 
@@ -133,9 +136,11 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
           </Link>
 
           <button
+            ref={menuButton}
             type="button"
             className="focus-ring inline-flex h-11 w-11 items-center justify-center rounded-md border border-white/10 text-white transition-all duration-300 hover:border-brand/50 hover:bg-brand/10 hover:text-brand-bright"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={locale === "ar" ? (open ? "إغلاق القائمة" : "فتح القائمة") : (open ? "Close menu" : "Open menu")}
+            aria-controls="mobile-navigation"
             aria-expanded={open}
             onClick={() => setOpen((value) => !value)}
           >
@@ -145,6 +150,9 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
       </div>
 
       <div
+        id="mobile-navigation"
+        inert={!open}
+        onKeyDown={(event) => { if (event.key === "Escape") setOpen(false); }}
         className={cn(
           "grid border-t border-white/[0.07] bg-ink-950/97 backdrop-blur-2xl transition-[grid-template-rows] duration-300 xl:hidden",
           open ? "grid-rows-[1fr]" : "grid-rows-[0fr]",
@@ -177,7 +185,7 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
                 onClick={() => setOpen(false)}
                 className="focus-ring flex min-h-12 items-center justify-center rounded-lg bg-[image:var(--grad-brand)] text-sm font-bold text-ink-950 shadow-[var(--shadow-elev-2)] transition-all duration-300 hover:brightness-[1.04]"
               >
-                {labels.cta}
+                {cta}
               </a>
             </div>
           </nav>

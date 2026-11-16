@@ -5,10 +5,12 @@ import {
 } from "lucide-react";
 import type { Locale } from "@/lib/locales";
 
+export const quoteCta: Record<Locale, string> = { ar: "اطلب عرض سعر", en: "Request a Quote" };
+
 export const company = {
   establishedYear: 1986,
   whatsappNumber: "967777265744",
-  logo: "/logo.png",
+  logo: "/logo.webp",
 };
 
 export const siteMeta: Record<
@@ -68,7 +70,7 @@ export const navigation = {
 
 export const content = {
   ar: {
-    cta: "اطلب عرض سعر",
+    cta: quoteCta.ar,
     language: "English",
     hero: {
       eyebrow: "شركة يمنية منذ 1986",
@@ -169,7 +171,7 @@ export const content = {
     },
   },
   en: {
-    cta: "Request a Quote",
+    cta: quoteCta.en,
     language: "العربية",
     hero: {
       eyebrow: "A Yemeni company since 1986",
@@ -294,7 +296,7 @@ export const structuredOrganization = {
   alternateName: "الوصابي للتجارة",
   foundingDate: "1986",
   areaServed: "Yemen",
-  logo: "/logo.png",
+  logo: "/logo.webp",
   contactPoint: {
     "@type": "ContactPoint",
     telephone: "+967777265744",
