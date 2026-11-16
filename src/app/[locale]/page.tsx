@@ -1,4 +1,5 @@
 import { notFound } from "next/navigation";
+import { connection } from 'next/server';
 import { LandingPage } from "@/components/sections/LandingPage";
 import { isLocale, type Locale } from "@/lib/locales";
 import { safeData, safeList, getSettings, type BlogPost, type Brand, type Category, type Product } from "@/lib/api";
@@ -8,6 +9,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import {getSeoSettings,pageMetadata,languagePaths,localized} from '@/lib/seo';
 export async function generateMetadata({params}:{params:Promise<{locale:string}>}) {
+  await connection();
   const {locale}=await params;if(!isLocale(locale))notFound();const s=await getSeoSettings();
   const metadata=await pageMetadata({locale,path:`/${locale}`,title:localized(s.homeTitleAr,s.homeTitleEn,locale),description:localized(s.homeDescriptionAr,s.homeDescriptionEn,locale),languages:languagePaths(locale,`/${locale}`)});
   if(metadata.openGraph){metadata.openGraph.title=localized(s.ogTitleAr,s.ogTitleEn,locale)||metadata.title as string;metadata.openGraph.description=localized(s.ogDescriptionAr,s.ogDescriptionEn,locale)||metadata.description||undefined;}
@@ -16,6 +18,7 @@ export async function generateMetadata({params}:{params:Promise<{locale:string}>
 }
 
 export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  await connection();
   const { locale: rawLocale } = await params;
 
   if (!isLocale(rawLocale)) {

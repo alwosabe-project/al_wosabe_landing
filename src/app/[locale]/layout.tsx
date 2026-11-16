@@ -1,3 +1,4 @@
+import { connection } from 'next/server';
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { notFound } from "next/navigation";
@@ -70,6 +71,8 @@ export default async function LocaleLayout({
     notFound();
   }
 
+  // Defer API-backed rendering until a request; retain explicit fetch revalidation.
+  await connection();
   const locale = rawLocale as Locale;
   const settings = await getSettings();
   const [seo,marketing]=await Promise.all([getSeoSettings(),apiGet<{data:MarketingConfig}>('/api/v1/public/marketing/config',['marketing']).then(r=>r.data).catch(()=>({consent:{version:1 as const,analyticsDefault:false as const,adsDefault:false as const},providers:{},eventRules:[]}))]);

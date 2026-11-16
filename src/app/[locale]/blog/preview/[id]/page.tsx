@@ -31,7 +31,7 @@ export default async function Page({ params, searchParams }: { params: Promise<{
             <Link href={`/${locale}`}>{locale === 'ar' ? 'الرئيسية' : 'Home'}</Link> / <Link href={`/${locale}/blog`}>{locale === 'ar' ? 'المدونة' : 'Blog'}</Link>
           </nav>
           <p className="text-sm text-graphite-500">
-            {new Date(post.publishedAt || post.createdAt || Date.now()).toLocaleDateString(locale === 'ar' ? 'ar-YE' : 'en-US')} · {post.author?.name} · {post.readingTimeMinutes} {locale === 'ar' ? 'دقائق قراءة' : 'min read'}
+            {post.publishedAt || post.createdAt ? new Date(post.publishedAt || post.createdAt!).toLocaleDateString(locale === 'ar' ? 'ar-YE' : 'en-US') : (locale === 'ar' ? 'مسودة غير مؤرخة' : 'Undated draft')} · {post.author?.name} · {post.readingTimeMinutes} {locale === 'ar' ? 'دقائق قراءة' : 'min read'}
           </p>
           <h1 className="font-display mt-5 text-4xl font-extrabold leading-tight lg:text-6xl">{post.title}</h1>
           <p className="mt-6 text-xl leading-9 text-graphite-600">{post.excerpt}</p>
