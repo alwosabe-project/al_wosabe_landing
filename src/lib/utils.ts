@@ -14,6 +14,6 @@ export function phoneHref(phone: string) {
 }
 
 export function whatsappHref(phone: string, message: string) {
-  const normalized = normalizePhone(phone).replace(/^00/, "");
+  const normalized = normalizePhone(phone).replace(/^(?:00|\+)/, "");
   return `https://wa.me/${normalized}?text=${encodeURIComponent(message)}`;
 }

@@ -12,6 +12,7 @@ import { QuoteForm } from "@/components/sections/QuoteForm";
 import { ParallaxImage } from "@/components/ui/ParallaxImage";
 import { BrandMarquee } from "@/components/ui/BrandMarquee";
 import { Hero } from "@/components/sections/Hero";
+import { CatalogCard } from '@/components/catalog/CatalogCard';
 import { Distribution } from "@/components/sections/Distribution";
 import { Branches } from "@/components/sections/Branches";
 import {
@@ -38,6 +39,10 @@ export function LandingPage({ locale, home, whatsappNumber }: { locale: Locale; 
         <About locale={locale} />
         <Operations locale={locale} />
         <Products locale={locale} categories={home.categories} />
+        {home.featured.length > 0 && <section id="featured-products" className="bg-paper py-20"><Container>
+          <SectionHeading eyebrow={locale === 'ar' ? 'من الكتالوج' : 'From our catalog'} title={locale === 'ar' ? 'منتجات مميزة' : 'Featured Products'} />
+          <div className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{home.featured.map(product => <CatalogCard key={product.id} product={product} locale={locale}/>)}</div>
+        </Container></section>}
         <Brands locale={locale} brands={home.brands} />
         <LatestPosts locale={locale} posts={home.posts} />
         <Distribution locale={locale} heading={<SectionHeading {...content[locale].distribution} dark />} />

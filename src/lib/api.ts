@@ -66,7 +66,8 @@ export function parsePublicSettings(input: unknown): PublicSettings {
   const internationalPhone = /^\+?[1-9]\d{6,14}$/;
 
   for (const key of ['whatsapp', 'phone'] as const) {
-    const value = data[key];
+    const raw = data[key];
+    const value = typeof raw === 'number' && Number.isSafeInteger(raw) && raw > 0 ? String(raw) : raw;
     if (typeof value === 'string' && internationalPhone.test(value.trim())) {
       result[key] = value.trim();
     } else if (value !== undefined) {
@@ -95,3 +96,6 @@ export async function getSettings(): Promise<PublicSettings> {
     return {};
   }
 }
+
+// This setting controls public catalog lists; home/related/blog keep their intentional limits.
+export async function getCatalogPageSize() { return (await getSettings()).pageSize || 12; }

@@ -10,6 +10,7 @@ import {PrivacySettingsButton} from '@/components/marketing/MarketingProvider';
 export async function Footer({ locale }: { locale: Locale }) {
   const settings = await getSettings();
   const whatsappNumber = settings.whatsapp || company.whatsappNumber;
+  const phone = settings.phone || whatsappNumber;
   const labels = content[locale];
   const year = new Date().getFullYear();
   const isAr = locale === "ar";
@@ -80,7 +81,7 @@ export async function Footer({ locale }: { locale: Locale }) {
               {productLinks.map(([label, href]) => (
                 <a
                   key={label}
-                  href={href}
+                  href={href.startsWith('#') ? `/${locale}${href}` : href}
                   className="animated-underline w-fit transition-colors duration-300 hover:text-white"
                 >
                   {label}
@@ -96,14 +97,14 @@ export async function Footer({ locale }: { locale: Locale }) {
               {branchLinks.map(([label, href]) => (
                 <a
                   key={label}
-                  href={href}
+                  href={href.startsWith('#') ? `/${locale}${href}` : href}
                   className="animated-underline w-fit transition-colors duration-300 hover:text-white"
                 >
                   {label}
                 </a>
               ))}
               <a
-                href="#branches"
+                href={`/${locale}#branches`}
                 className="mt-2 flex w-full items-center justify-center gap-1 text-xs font-bold text-brand transition-colors hover:text-brand-bright sm:w-auto sm:justify-start"
               >
                 <span>{isAr ? "استعراض كل الفروع" : "View All Branches"}</span>
@@ -118,15 +119,16 @@ export async function Footer({ locale }: { locale: Locale }) {
             <div className="grid w-full justify-items-center gap-3 text-sm text-steel-400 sm:justify-items-start">
               {/* Main Phone */}
               <a
-                href={phoneHref(whatsappNumber)}
+                href={phoneHref(phone)}
                 className="flex items-center gap-3 transition-colors duration-300 hover:text-white"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-brand">
                   <Phone size={15} aria-hidden="true" />
                 </span>
-                <span dir="ltr" className="font-bold">+{whatsappNumber.replace(/^\+/, '')}</span>
+                <span dir="ltr" className="font-bold">+{phone.replace(/^\+/, '')}</span>
               </a>
 
+              {settings.email && <a href={`mailto:${settings.email}`} className="flex items-center gap-3 hover:text-white"><Mail size={15} aria-hidden="true"/><span dir="ltr">{settings.email}</span></a>}
               {/* Main Office Location */}
               <span className="flex items-center gap-3">
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-brand">
@@ -137,7 +139,7 @@ export async function Footer({ locale }: { locale: Locale }) {
 
               {/* Quote Request Form link */}
               <a
-                href="#quote"
+                href={`/${locale}#quote`}
                 className="flex items-center gap-3 transition-colors duration-300 hover:text-white"
               >
                 <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-white/[0.06] text-brand">

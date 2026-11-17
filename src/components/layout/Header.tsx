@@ -3,6 +3,7 @@
 import { CartLink } from '@/components/catalog/QuoteCart';
 import Image from "next/image";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Globe, Menu, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { quoteCta, navigation } from "@/data/site";
@@ -18,6 +19,15 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
   const otherLocale = locale === "ar" ? "en" : "ar";
   const cta = quoteCta[locale];
   const links = navigation[locale];
+  const pathname = usePathname();
+  const isHome = pathname.replace(/\/$/, '') === `/${locale}`;
+  const pageLinks = [
+    { path: 'products', label: locale === 'ar' ? 'الكتالوج' : 'Catalog', active: new RegExp(`^/${locale}/(products|categories)(/|$)`).test(pathname) },
+    { path: 'blog', label: locale === 'ar' ? 'المدونة' : 'Blog', active: pathname.startsWith(`/${locale}/blog`) },
+    { path: 'completed-tenders', label: locale === 'ar' ? 'المناقصات المنفذة' : 'Completed Tenders', active: pathname.startsWith(`/${locale}/completed-tenders`) },
+  ];
+  const sectionActive = (id: string) => isHome ? activeSection === id : pathname.startsWith(`/${locale}/${id}`);
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -29,7 +39,8 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
   }, []);
 
   useEffect(() => {
-    const sectionIds = links.map(([_, id]) => id);
+    if (!isHome) return;
+    const sectionIds = links.map(([, id]) => id);
 
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {
       entries.forEach((entry) => {
@@ -63,7 +74,7 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
       observer.disconnect();
       window.removeEventListener("scroll", handleScroll);
     };
-  }, [links]);
+  }, [links, isHome, pathname]);
 
   return (
     <header
@@ -93,15 +104,14 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
         </Link>
 
         <nav className="hidden items-center gap-0.5 xl:flex" aria-label="Main navigation">
-          <Link href={`/${locale}/products`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
-          <Link href={`/${locale}/blog`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
-          <Link href={`/${locale}/completed-tenders`} className="animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold text-steel-200 hover:text-white">{locale === "ar" ? "المناقصات المنفذة" : "Completed Tenders"}</Link>
+          {pageLinks.map(link => <Link key={link.path} href={`/${locale}/${link.path}`} aria-current={link.active ? 'page' : undefined} className={cn("animated-underline focus-ring rounded-md px-3.5 py-2 text-sm font-bold", link.active ? "active text-brand-bright" : "text-steel-200 hover:text-white")}>{link.label}</Link>)}
           {links.filter(([, id]) => !['products', 'quote'].includes(id)).map(([label, id]) => {
-            const isActive = activeSection === id;
+            const isActive = sectionActive(id);
             return (
               <a
                 key={id}
                 href={`/${locale}#${id}`}
+                aria-current={isActive ? (isHome && id !== 'home' ? 'location' : 'page') : undefined}
                 className={cn(
                   "animated-underline focus-ring relative rounded-md px-3.5 py-2 text-sm font-bold transition-colors duration-300",
                   isActive ? "active text-brand-bright" : "text-steel-200 hover:text-white",
@@ -160,15 +170,14 @@ export function Header({ locale, alternatePaths }: { locale: Locale; alternatePa
       >
         <div className="overflow-hidden">
           <nav className="grid gap-1 px-5 py-5" aria-label="Mobile navigation">
-            <Link href={`/${locale}/products`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "الكتالوج" : "Catalog"}</Link>
-            <Link href={`/${locale}/blog`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "المدونة" : "Blog"}</Link>
-            <Link href={`/${locale}/completed-tenders`} onClick={() => setOpen(false)} className="focus-ring rounded-md px-3 py-3 text-base font-bold text-steel-200 hover:bg-brand/10 hover:text-white">{locale === "ar" ? "المناقصات المنفذة" : "Completed Tenders"}</Link>
-            {links.map(([label, id]) => {
-              const isActive = activeSection === id;
+            {pageLinks.map(link => <Link key={link.path} href={`/${locale}/${link.path}`} onClick={() => setOpen(false)} aria-current={link.active ? 'page' : undefined} className={cn("focus-ring rounded-md px-3 py-3 text-base font-bold hover:bg-brand/10", link.active ? "text-brand-bright" : "text-steel-200 hover:text-white")}>{link.label}</Link>)}
+            {links.filter(([, id]) => !['products', 'quote'].includes(id)).map(([label, id]) => {
+              const isActive = sectionActive(id);
               return (
                 <a
                   key={id}
                   href={`/${locale}#${id}`}
+                aria-current={isActive ? (isHome && id !== 'home' ? 'location' : 'page') : undefined}
                   onClick={() => setOpen(false)}
                   className={cn(
                     "focus-ring rounded-md px-3 py-3 text-base font-bold transition-colors duration-300 hover:bg-brand/10",

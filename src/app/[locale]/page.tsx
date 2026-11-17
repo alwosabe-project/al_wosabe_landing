@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ locale: strin
   return (
     <>
       <Header locale={locale} />
-      <LandingPage locale={locale} whatsappNumber={whatsappNumber} home={{ categories, brands, featured: featured.data, posts: posts.data }} />
+      <LandingPage locale={locale} whatsappNumber={whatsappNumber} home={{ categories, brands, featured: settings.showFeaturedProducts === false ? [] : featured.data, posts: settings.showLatestPosts === false ? [] : posts.data }} />
       <Footer locale={locale} />
     </>
   );
