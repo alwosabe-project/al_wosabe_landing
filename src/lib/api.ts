@@ -48,11 +48,50 @@ export async function safeData<T>(path: string, tags: string[]): Promise<T[]> {
 }
 export function localeQuery(locale: Locale) { return `locale=${locale}`; }
 
-export async function getSettings(): Promise<Record<string, string>> {
+export interface PublicSettings {
+  whatsapp?: string;
+  phone?: string;
+  email?: string;
+  pageSize?: number;
+  showFeaturedProducts?: boolean;
+  showLatestPosts?: boolean;
+}
+
+// Validate at runtime: TypeScript types alone do not check data returned by the API.
+// Ignore malformed fields so one incorrect CMS setting cannot crash SSR on every page.
+export function parsePublicSettings(input: unknown): PublicSettings {
+  if (!input || typeof input !== 'object' || Array.isArray(input)) return {};
+  const data = input as Record<string, unknown>;
+  const result: PublicSettings = {};
+  const internationalPhone = /^\+?[1-9]\d{6,14}$/;
+
+  for (const key of ['whatsapp', 'phone'] as const) {
+    const value = data[key];
+    if (typeof value === 'string' && internationalPhone.test(value.trim())) {
+      result[key] = value.trim();
+    } else if (value !== undefined) {
+      console.warn(`[public/settings] Ignoring invalid ${key} value`);
+    }
+  }
+  if (typeof data.email === 'string' && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+    result.email = data.email.trim();
+  }
+  if (typeof data.pageSize === 'number' && Number.isInteger(data.pageSize) && data.pageSize >= 1 && data.pageSize <= 100) {
+    result.pageSize = data.pageSize;
+  }
+  for (const key of ['showFeaturedProducts', 'showLatestPosts'] as const) {
+    const value = data[key];
+    if (typeof value === 'boolean') result[key] = value;
+  }
+  return result;
+}
+
+export async function getSettings(): Promise<PublicSettings> {
   try {
-    const res = await apiGet<{ data: Record<string, string> }>('/api/v1/public/settings', ['settings']);
-    return res.data;
-  } catch {
+    const res = await apiGet<{ data: unknown }>('/api/v1/public/settings', ['settings']);
+    return parsePublicSettings(res.data);
+  } catch (error) {
+    console.error('[public/settings] Failed to fetch settings:', error instanceof Error ? error.message : 'unknown error');
     return {};
   }
 }

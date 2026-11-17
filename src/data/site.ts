@@ -9,7 +9,7 @@ export const quoteCta: Record<Locale, string> = { ar: "اطلب عرض سعر", 
 
 export const company = {
   establishedYear: 1986,
-  whatsappNumber: "967777265744",
+  whatsappNumber: "967777265741",
   logo: "/logo.webp",
 };
 
