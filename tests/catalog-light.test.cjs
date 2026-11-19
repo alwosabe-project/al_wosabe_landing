@@ -1,0 +1,14 @@
+const {test}=require('node:test');
+const assert=require('node:assert/strict');
+const fs=require('node:fs'),Module=require('node:module'),ts=require('typescript');
+const file=require('node:path').resolve(__dirname,'../src/lib/quote-cart.ts');
+const compiled=ts.transpileModule(fs.readFileSync(file,'utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
+const mod=new Module(file,module);mod._compile(compiled,file);
+const {parseCart,cartKey,consumeCart,selectCartVariant}=mod.exports;
+const productId='11111111-1111-4111-8111-111111111111',red='22222222-2222-4222-8222-222222222222',blue='33333333-3333-4333-8333-333333333333';
+const item={productId,name:'Product',names:{ar:'منتج'},image:'',quantity:7};
+test('v1 migration retains product and quantity with an unresolved variant',()=>{assert.deepEqual(parseCart(JSON.stringify([item])),[{...item,variantId:null}]);});
+test('two colors of the same product remain independent cart rows',()=>{const rows=parseCart(JSON.stringify([{...item,variantId:red},{...item,variantId:blue,quantity:2}]));assert.equal(rows.length,2);assert.notEqual(cartKey(rows[0]),cartKey(rows[1]));assert.deepEqual(consumeCart(rows,[{...item,variantId:red,quantity:3}]).map(r=>r.quantity),[4,2]);});
+test('successfully resolving a legacy choice preserves concurrent additions',()=>{const rows=selectCartVariant([{...item,variantId:null},{...item,variantId:red,quantity:2}],cartKey(item),{id:red,sku:'RED',options:{color:'red'},unit:'piece'});assert.equal(rows.length,1);assert.equal(rows[0].quantity,9);});
+test('submission consumption retains quantities added while request was in flight',()=>{assert.equal(consumeCart([{...item,variantId:red,quantity:9}],[{...item,variantId:red,quantity:7}])[0].quantity,2);});
+test('corrupt and invalid cart rows are ignored without inventing choices',()=>{assert.deepEqual(parseCart('{broken'),[]);assert.deepEqual(parseCart(JSON.stringify([{...item,quantity:0},{...item,variantId:'bad'}])),[]);});

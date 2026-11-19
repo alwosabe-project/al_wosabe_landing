@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "test:catalog-light": "node --test tests/catalog-light.test.cjs"
   },
   "dependencies": {
     "@emnapi/core": "1.11.1",

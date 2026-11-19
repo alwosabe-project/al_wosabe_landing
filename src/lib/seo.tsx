@@ -56,7 +56,7 @@ export async function pageMetadata({locale,path,title,description,image,indexabl
 export function listingPolicy(path:string,query:Record<string,string|undefined>,itemCount?:number,pageSize=12) {
   const requested=Number(query.page);
   const page=Number.isSafeInteger(requested)&&requested>1?Math.min(1000000,requested):1;
-  return {path:page>1?`${path}?page=${page}`:path,indexable:!query.search&&!query.category&&!query.brand&&(itemCount===undefined||(itemCount>0&&(page-1)*pageSize<itemCount))};
+  return {path:page>1?`${path}?page=${page}`:path,indexable:!query.search&&!query.category&&!query.brand&&!query.sort&&!Object.keys(query).some(k=>k.startsWith('attr.')&&query[k])&&(itemCount===undefined||(itemCount>0&&(page-1)*pageSize<itemCount))};
 }
 // Resolve old slugs only when a content lookup returns an actual 404.
 export async function contentData<T>(endpoint:string,tags:string[],path:string):Promise<T> {
