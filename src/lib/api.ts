@@ -1,3 +1,4 @@
+import type {DisplayAttribute} from './catalog-format';
 import type { Locale } from './locales';
 const API_URL = process.env.API_URL || process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000';
 export interface Media { id: string; url: string; altAr?: string; altEn?: string }
@@ -5,8 +6,8 @@ export interface SeoContent { publishedItemCount?: number; indexable?: boolean; 
 export interface Category extends SeoContent { id: string; name: string; slug: string; description: string; seoTitle?: string; seoDescription?: string; image?: Media | null }
 export interface Brand extends SeoContent { id: string; name: string; slug: string; descriptionAr?: string; descriptionEn?: string; seoTitleAr?: string; seoTitleEn?: string; seoDescriptionAr?: string; seoDescriptionEn?: string; logo?: Media | null }
 export interface ProductVariant {id:string;sku:string;manufacturerPartNumber?:string|null;options:Record<string,string|number|boolean>;specifications?:Record<string,string|number|boolean>;unit:string;image?:Media|null}
-export interface CatalogFilter {key:string;labelAr:string;labelEn:string;dataType:string;values:Array<string|number|boolean>}
-export interface Product extends SeoContent {modelNumber?:string|null;specifications?:Record<string,string|number|boolean>;variants?:ProductVariant[];attributeDefinitions?:Array<{key:string;labelAr:string;labelEn:string;unit?:string|null}>;compatibilities?:Array<{variantId?:string|null;yearFrom?:number|null;yearTo?:number|null;notesAr:string;notesEn:string;vehicleModel:{manufacturerName:string;modelName:string}}>;
+export interface CatalogFilter {key:string;labelAr:string;labelEn:string;dataType:string;values:Array<string|number|boolean>;optionLabels?:DisplayAttribute['optionLabels'];unit?:string|null}
+export interface Product extends SeoContent {modelNumber?:string|null;specifications?:Record<string,string|number|boolean>;variants?:ProductVariant[];attributeDefinitions?:DisplayAttribute[];compatibilities?:Array<{variantId?:string|null;yearFrom?:number|null;yearTo?:number|null;notesAr:string;notesEn:string;vehicleModel:{manufacturerName:string;modelName:string}}>;
  id: string; name: string; slug: string; shortDescription: string; description: string; seoTitle?: string; seoDescription?: string; mainImage?: Media | null; brand?: Brand | null; primaryCategory?: Category; gallery?: Array<{id:string;media:Media}>; publishedAt?: string }
 export interface BlogPost extends SeoContent { id: string; title: string; slug: string; excerpt: string; contentHtml: string; seoTitle?: string; seoDescription?: string; readingTimeMinutes: number; coverImage?: Media | null; publishedAt: string; createdAt?: string; author?: {name:string}; related?: BlogPost[] }
 export interface BlogTaxonomy extends SeoContent { id:string; name:string; slug:string; description?:string; seoTitle?:string; seoDescription?:string; nameAr?:string; nameEn?:string; seoTitleAr?:string; seoTitleEn?:string; seoDescriptionAr?:string; seoDescriptionEn?:string }

@@ -1,4 +1,5 @@
-export type CartItem={productId:string;variantId?:string|null;quantity:number;name:string;image:string;names:Partial<Record<'ar'|'en',string>>;sku?:string;options?:Record<string,string|number|boolean>;unit?:string};
+import type {DisplayAttribute} from './catalog-format';
+export type CartItem={productId:string;variantId?:string|null;quantity:number;name:string;image:string;names:Partial<Record<'ar'|'en',string>>;sku?:string;options?:Record<string,string|number|boolean>;unit?:string;attributeDefinitions?:DisplayAttribute[]};
 export const cartKey=(item:Pick<CartItem,'productId'|'variantId'>)=>`${item.productId}:${item.variantId||'legacy'}`;
 export function parseCart(raw:string):CartItem[] {
   try {
@@ -13,9 +14,9 @@ export function parseCart(raw:string):CartItem[] {
 export function consumeCart(current:CartItem[],submitted:CartItem[]) {
   return current.map(row=>({...row,quantity:row.quantity-(submitted.find(item=>cartKey(item)===cartKey(row))?.quantity||0)})).filter(row=>row.quantity>0);
 }
-export function selectCartVariant(current:CartItem[],key:string,variant:{id:string;sku:string;options:Record<string,string|number|boolean>;unit:string}):CartItem[] {
+export function selectCartVariant(current:CartItem[],key:string,variant:{id:string;sku:string;options:Record<string,string|number|boolean>;unit:string;attributeDefinitions?:DisplayAttribute[]}):CartItem[] {
   const old=current.find(i=>cartKey(i)===key);if(!old)return current;
-  const updated={...old,variantId:variant.id,sku:variant.sku,options:variant.options,unit:variant.unit};
+  const updated={...old,variantId:variant.id,sku:variant.sku,options:variant.options,unit:variant.unit,...(variant.attributeDefinitions?{attributeDefinitions:variant.attributeDefinitions}:{})};
   const other=current.find(i=>cartKey(i)!==key&&cartKey(i)===cartKey(updated));
   return other?current.filter(i=>cartKey(i)!==key).map(i=>i===other?{...i,quantity:Math.min(99999,i.quantity+old.quantity)}:i):current.map(i=>cartKey(i)===key?updated:i);
 }
